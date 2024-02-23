@@ -17,10 +17,10 @@ int main(void)
     while (1) 
     {
 		if(LEFT_BOTTOM_SENSOR == 1){
-			//Code
+			//Code here
 		}
 		if(RIGHT_BOTTOM_SENSOR == 1){
-			//Code
+			//Code here
 		}
     }
 }
