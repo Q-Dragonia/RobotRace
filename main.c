@@ -16,6 +16,12 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
+		if(LEFT_BOTTOM_SENSOR == 1){
+			//Code
+		}
+		if(RIGHT_BOTTOM_SENSOR == 1){
+			//Code
+		}
     }
 }
 
