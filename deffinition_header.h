@@ -10,13 +10,16 @@
 #define DEFFINITION_HEADER_H_
 
 //Pin definitions for line tracking Sensor
-#define LEFT_MIDDLE_SENSOR DUMMY
-#define MIDDLE_MIDDLE_SENSOR DUMMY
-#define RIGHT_MIDDLE_SENSOR DUMMY
+#define LEFT_MIDDLE_SENSOR 3
+#define MIDDLE_MIDDLE_SENSOR 7
+#define RIGHT_MIDDLE_SENSOR 0
 
 //Pin definitions for IR sensor on the bottom- left and right side.
-#define LEFT_BOTTOM_SENSOR DUMMY
-#define RIGHT_BOTTOM_SENSOR DUMMY
+#define LEFT_BOTTOM_SENSOR 7
+#define RIGHT_BOTTOM_SENSOR 7
+
+//LED
+#define RED 2
 
 //Pin definitions for wheel motors
 

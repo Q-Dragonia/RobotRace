@@ -13,13 +13,13 @@
 #include "deffinition_header.h"
 
 uint8_t readLeftMiddleSensor(){
-	return (PIND & (1 << LEFT_MIDDLE_SENSOR)) ? 1 : 0;
+	return (PINB & (1 << LEFT_MIDDLE_SENSOR)) ? 1 : 0;
 }
 uint8_t readMiddleMiddleSensor(){
 	return (PIND & (1 << MIDDLE_MIDDLE_SENSOR)) ? 1 : 0;
 }
 uint8_t readRightMiddleSensor(){
-	return (PIND & (1 << RIGHT_MIDDLE_SENSOR)) ? 1 : 0;
+	return (PINB & (1 << RIGHT_MIDDLE_SENSOR)) ? 1 : 0;
 }
 uint8_t readLeftBottomSensor(){
 	return (PIND & (1 << LEFT_BOTTOM_SENSOR)) ? 1 : 0;

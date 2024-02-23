@@ -14,19 +14,19 @@
 
 void initAll(){
 	initMiddleBottomSensor();
-	initSideBottomSensor();
+	//initSideBottomSensor();
 }
 
 void initMiddleBottomSensor(){
 	//Set bottom line tracking sensor as Input
-	DDRD &= ~(1 << LEFT_MIDDLE_SENSOR);		// Set Pin for bottom line tracking sensor left part
+	DDRB &= ~(1 << LEFT_MIDDLE_SENSOR);		// Set Pin for bottom line tracking sensor left part
 	DDRD &= ~(1 << MIDDLE_MIDDLE_SENSOR);	// Set Pin for bottom line tracking sensor middle part
-	DDRD &= ~(1 << RIGHT_MIDDLE_SENSOR);	// Set Pin for bottom line tracking sensor right part
+	DDRB &= ~(1 << RIGHT_MIDDLE_SENSOR);	// Set Pin for bottom line tracking sensor right part
 	
 	//Enable internal pull-up resistors for bottom line tracking sensor
-	PORTD |= (1 << LEFT_MIDDLE_SENSOR);		//Enable internal pull-up resistor for bottom line tracking sensor left part
+	PORTB |= (1 << LEFT_MIDDLE_SENSOR);		//Enable internal pull-up resistor for bottom line tracking sensor left part
 	PORTD |= (1 << MIDDLE_MIDDLE_SENSOR);	//Enable internal pull-up resistor for bottom line tracking sensor middle part
-	PORTD |= (1 << RIGHT_MIDDLE_SENSOR);	//Enable internal pull-up resistor for bottom line tracking sensor right part
+	PORTB |= (1 << RIGHT_MIDDLE_SENSOR);	//Enable internal pull-up resistor for bottom line tracking sensor right part
 }
 
 void initSideBottomSensor(){
@@ -36,6 +36,9 @@ void initSideBottomSensor(){
 	PORTD |= (1 << LEFT_BOTTOM_SENSOR);		//Enable internal pull-up resistor for bottom IR sensor Left
 }
 
+void LED(){
+	DDRB |= (1 << RED);
+}
 void initMovementMotors(){
 	//Init is here
 }

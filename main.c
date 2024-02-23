@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include "bottom_sensor_header.h"
+#include "init_header.h"
 
 
 int main(void)
@@ -16,11 +17,10 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-		if(LEFT_BOTTOM_SENSOR == 1){
-			//Code here
-		}
-		if(RIGHT_BOTTOM_SENSOR == 1){
-			//Code here
+		if(readLeftMiddleSensor() == 1 && readMiddleMiddleSensor()== 1 && readRightMiddleSensor() == 1){ // 1 is black
+			PINB |= (1 << RED);
+		}else {
+			PORTB &= ~(1 << RED);
 		}
     }
 }
