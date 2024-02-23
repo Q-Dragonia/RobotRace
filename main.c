@@ -11,6 +11,8 @@
 
 int main(void)
 {
+	initAll();
+	
     /* Replace with your application code */
     while (1) 
     {

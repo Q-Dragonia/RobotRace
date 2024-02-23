@@ -12,6 +12,11 @@
 #include <avr/io.h>
 #include "deffinition_header.h"
 
+void initAll(){
+	initMiddleBottomSensor();
+	initSideBottomSensor();
+}
+
 void initMiddleBottomSensor(){
 	//Set bottom line tracking sensor as Input
 	DDRD &= ~(1 << LEFT_MIDDLE_SENSOR);		// Set Pin for bottom line tracking sensor left part
