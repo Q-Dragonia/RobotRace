@@ -8,7 +8,12 @@
 
 #ifndef DEFFINITION_HEADER_H_
 #define DEFFINITION_HEADER_H_
-
+//definitions for driving
+#define PWM_MAX 255       // Maximum PWM value
+#define A_DIRECTION_PIN PD2 //right motors
+#define A_SPEED_PIN PD6 //right motors
+#define B_DIRECTION_PIN PD4 //left motors
+#define B_SPEED_PIN PD5 //left motors
 //Pin definitions for line tracking Sensor
 #define LEFT_MIDDLE_SENSOR DUMMY
 #define MIDDLE_MIDDLE_SENSOR DUMMY

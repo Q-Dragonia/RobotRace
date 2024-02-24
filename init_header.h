@@ -15,8 +15,25 @@
 void initAll(){
 	initMiddleBottomSensor();
 	initSideBottomSensor();
+	initPwmDriving();
 }
-
+void initPwmDriving() {
+	// Set OC0A (PD6) and OC0B (PD5) as output pins, motor speed pins
+	DDRD |= (1 << DDD6) | (1 << DDD5);
+	
+	// Configure Timer0 for Fast PWM mode, non-inverted output
+	TCCR0A |= (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00);
+	
+	// Set prescaler to 64
+	TCCR0B |= (1 << CS01)|(1<<CS00);
+	
+	// Set direction control pins as output
+	DDRD |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN);
+	
+	// Set all direction pins to low initially
+	PORTD &= ~((1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN));
+	
+}
 void initMiddleBottomSensor(){
 	//Set bottom line tracking sensor as Input
 	DDRD &= ~(1 << LEFT_MIDDLE_SENSOR);		// Set Pin for bottom line tracking sensor left part
@@ -36,9 +53,6 @@ void initSideBottomSensor(){
 	PORTD |= (1 << LEFT_BOTTOM_SENSOR);		//Enable internal pull-up resistor for bottom IR sensor Left
 }
 
-void initMovementMotors(){
-	//Init is here
-}
 
 void initCollisionSensor(){
 	//Init is here
