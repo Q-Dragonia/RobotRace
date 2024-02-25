@@ -136,6 +136,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="bottom_sensor_header.h">
       <SubType>compile</SubType>
     </Compile>
