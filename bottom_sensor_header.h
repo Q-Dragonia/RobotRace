@@ -22,10 +22,10 @@ uint8_t readRightMiddleSensor(){
 	return (PINB & (1 << RIGHT_MIDDLE_SENSOR)) ? 1 : 0;
 }
 uint8_t readLeftBottomSensor(){
-	return (PIND & (1 << LEFT_BOTTOM_SENSOR)) ? 1 : 0;
+	return (PINC & (1 << LEFT_BOTTOM_SENSOR)) ? 1 : 0;
 }
 uint8_t readRightBottomSensor(){
-	return (PIND & (1 << RIGHT_BOTTOM_SENSOR)) ? 1 : 0;
+	return (PINC & (1 << RIGHT_BOTTOM_SENSOR)) ? 1 : 0;
 }
 
 

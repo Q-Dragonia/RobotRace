@@ -20,8 +20,8 @@
 #define RIGHT_MIDDLE_SENSOR 0
 
 //Pin definitions for IR sensor on the bottom- left and right side.
-#define LEFT_BOTTOM_SENSOR 7
-#define RIGHT_BOTTOM_SENSOR 7
+#define LEFT_BOTTOM_SENSOR 0
+#define RIGHT_BOTTOM_SENSOR 3
 
 //LED
 #define RED 2
