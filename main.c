@@ -19,6 +19,9 @@ int main(void)
     
 	init_ADC();
 	init_USART(MYUBRR);
+	//initCollision();
+	//initMovement();
+	//initServo();
 	sei();
 	
     while (1) 
