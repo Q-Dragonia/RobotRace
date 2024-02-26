@@ -19,4 +19,6 @@
 #define SENSOR_LEFT_CHANNEL 0
 #define SENSOR_RIGHT_CHANNEL 3
 
+char receivedMessage;
+
 #endif /* DEFINITIONS_H_ */

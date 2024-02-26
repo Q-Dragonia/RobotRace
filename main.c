@@ -43,6 +43,23 @@ int main(void)
 
 		// Delay before next measurement
 		_delay_ms(10000);
+		
+		receivedMessage = recieveMessage();
+		
+		if(receivedMessage == 'A'){
+			/*CODE*/
+		}else if(receivedMessage == 'B'){
+			/*CODE*/
+		}else if(receivedMessage == 'C'){
+			/*CODE*/
+		}else{
+			transferMessage('E');
+			transferMessage('R');
+			transferMessage('R');
+			transferMessage('O');
+			transferMessage('R');
+		}
+			
     }
 }
 
