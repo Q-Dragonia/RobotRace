@@ -8,6 +8,9 @@
 
 #ifndef DEFFINITION_HEADER_H_
 #define DEFFINITION_HEADER_H_
+
+#define F_CPU 16000000UL
+
 //definitions for driving
 #define PWM_MAX 255       // Maximum PWM value
 #define A_DIRECTION_PIN PD2 //right motors
@@ -30,6 +33,10 @@
 
 
 //Pin definitions for Collision sensor
+
+//definition for app
+#define BAUD 9600
+#define MYUBRR F_CPU/16/BAUD-1
 
 
 #endif /* DEFFINITION_HEADER_H_ */
