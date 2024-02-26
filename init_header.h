@@ -50,10 +50,10 @@ void initMiddleBottomSensor(){
 }
 
 void initSideBottomSensor(){
-	DDRD &= ~(1 << RIGHT_BOTTOM_SENSOR);	// Set Pin for bottom IR sensor Right
-	DDRD &= ~(1 << LEFT_BOTTOM_SENSOR);		// Set Pin for bottom IR sensor Left
-	PORTD |= (1 << RIGHT_BOTTOM_SENSOR);	// Enable internal pull-up resistor for bottom IR sensor Right
-	PORTD |= (1 << LEFT_BOTTOM_SENSOR);		//Enable internal pull-up resistor for bottom IR sensor Left
+	DDRC &= ~(1 << RIGHT_BOTTOM_SENSOR);	// Set Pin for bottom IR sensor Right
+	DDRC &= ~(1 << LEFT_BOTTOM_SENSOR);		// Set Pin for bottom IR sensor Left
+	PORTC |= (1 << RIGHT_BOTTOM_SENSOR);	// Enable internal pull-up resistor for bottom IR sensor Right
+	PORTC |= (1 << LEFT_BOTTOM_SENSOR);		//Enable internal pull-up resistor for bottom IR sensor Left
 }
 
 void LED(){
