@@ -1,63 +1,45 @@
 /*
  * RobotRace.c
  *
- * Created: 22.02.2024 02:41:31
- * Author : quinh
+ * Created: 2024-02-26 21:02:56
+ * Author : ARAL0011
  */ 
 
 #include <avr/io.h>
-#include "bottom_sensor_header.h"
-#include "init_header.h"
-#include "movement.h"
-#include "app.h"
+#include <avr/interrupt.h>
+#include <avr/delay.h>
+
+#include "definitions.h"
+#include "adc.h"
+#include "usart.h"
 
 
 int main(void)
 {
-	initAll();
+    
+	init_ADC();
+	init_USART(MYUBRR);
+	sei();
 	
-    /* Replace with your application code */
     while (1) 
     {
-      
-		unsigned char received_byte = USART_Receive();
+		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
+		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
+		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
+		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
+		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL);
 		
-		//stay in the loop until start
-		while(received_byte == 'C'){
-			received_byte = USART_Receive(); //Get next byte to escape the loop
-    }
-		if(received_byte == 'B'){_delay_ms(5000);}
-			
-		if(readLeftMiddleSensor() == 1 && readMiddleMiddleSensor()== 1 && readRightMiddleSensor() == 1 && readLeftBottomSensor() == 1 && readRightBottomSensor() == 1){ // 1 is black
-			PINB |= (1 << RED);
-			//setMotorASpeed(255);
-			//setMotorBSpeed(255);
-			//setMotorADirection(1);
-			//setMotorBDirection(1);
+		// Convert distance to string
+		char buffer[80];
+		snprintf(buffer, sizeof(buffer), "%d %d %d %d %d \n", sensorLeft, lineTrackingSensorLeft, lineTrackingSensorMiddle, lineTrackingSensorRight, sensorRight);
+		
+		// Transmit distance over UART
+		for (int i = 0; buffer[i] != '\0'; i++) {
+			transferMessage(buffer[i]);
 		}
-		if(readRightBottomSensor() == 0){
-			if(readRightMiddleSensor() == 0){
-				//Only one of these two
-				//setMotorASpeed(150);
-				//setMotorBSpeed(150);
-			}else{
-				//Only one of these two
-				//setMotorASpeed(200);
-				//setMotorBSpeed(200);
-			}
-		}
-		if(readLeftBottomSensor() == 0){
-			if(readLeftMiddleSensor() == 0){
-				//Only one of these two
-				//setMotorASpeed(150);
-				//setMotorBSpeed(150);
-				}else{
-				//Only one of these two
-				//setMotorASpeed(200);
-				//setMotorBSpeed(200);
-			}
-		}
-		//Collision Sensor Part
+
+		// Delay before next measurement
+		_delay_ms(10000);
     }
 }
 
