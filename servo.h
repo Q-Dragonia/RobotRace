@@ -12,44 +12,38 @@
 #include "definitions.h"
 
 void init_servo_PWM() {
-	// Set servo pin (OC1A) as output
-	DDRB |= (1 << SERVO_PIN);
-
-	// Fast PWM, 8-bit, non-inverted mode
-	TCCR1A = (1 << WGM11) | (1 << COM1A1);
-
-	// Fast PWM, prescaler 64
-	TCCR1B = (1 << WGM12) | (1 << WGM13) | (1 << CS11) | (1 << CS10);
-
-	// Set TOP value for 50Hz (20ms) PWM signal
-	ICR1 = 2499;  // (F_CPU / (64 * frequency)) - 1
-
-	// Set initial servo position to SERVO_MIN
-	OCR1A = SERVO_MIN;
-
+	DDRB |= (1 << SERVO_PIN);//set as output
+	
+	TCCR1A = (0b10 << COM1A0)|(0b00 << COM1B0)|(0b10 << WGM10);//Configure Timer1 for Fast PWM mode, non-inverted output
+	
+	TIMSK1 = (1 << TOIE1)|(1<<OCIE1A); //set timer1, interrupt on overflow and output compare A
+	
+	OCR1AH = (SERVO_MIN & 0xFF00)>>8;//higher bits
+	OCR1AL = (SERVO_MIN & 0x00FF);//lower bits
+	
+	ICR1H = (SERVO_PWM_TOP & 0xFF00)>>8;//higher bits
+	ICR1L = (SERVO_PWM_TOP & 0x00FF);//lower bits
+	
+	TCCR1B = (0b11 << WGM12)|(0b010 << CS10);//Prescaler 8
 }
 static void update_pwm(uint16_t i){
 	update_pwm_ready = 1;
-	while (update_pwm_ready !=0);
-	OCR1AH = (i & 0xFF00)>>8;//set high bits
-	OCR1AL = (i & 0x00FF);//set low bits
+	if (update_pwm_ready != 0) {
+		OCR1AH = (i & 0xFF00) >> 8; // set high bits
+		OCR1AL = (i & 0x00FF);      // set low bits
+	}
 }
 
 // Function to set servo angle
 void servo_set_angle(uint16_t angle,uint16_t max_angle) {
-	 // Calculate pulse width
-	 float pulse_ms = ((float)angle / (float)max_angle) * (SERVO_MAX_PULSE - SERVO_MIN_PULSE) + SERVO_MIN_PULSE;
-	 uint16_t compare_value = (uint16_t)(pulse_ms / 1000.0 * F_CPU / 64);
-
-	 // Limit the compare value to the range of SERVO_MIN to SERVO_MAX
-	 if (compare_value < SERVO_MIN) {
-		 compare_value = SERVO_MIN;
-		 } else if (compare_value > SERVO_MAX) {
-		 compare_value = SERVO_MAX;
-	 }
-
-	 // Update OCR1A with the calculated compare value
-	 OCR1A = compare_value;
+	// Calculate pulse width
+	float set = (float) angle/(float) max_angle;//ratio of degrees
+	
+	set = (((float)SERVO_MAX-(float)SERVO_MIN)*set)+(float)SERVO_MIN;//finds the value for pwm
+	
+	uint16_t point = (uint16_t) set;
+	
+	update_pwm(point);
 }
 
 
