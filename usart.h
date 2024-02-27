@@ -27,8 +27,8 @@ void init_USART(unsigned int ubrr){
 	// Set frame format: 8 data bits, 1 stop bit
 	UCSR0C = (3 << UCSZ00);
 	
-// 	// Enable USART Receive Complete (RXC) interrupt
-// 	UCSR0B |= (1 << RXCIE0);
+	// Enable USART Receive Complete (RXC) interrupt
+	UCSR0B |= (1 << RXCIE0);
 }
 
 void transferMessage(unsigned char data){
@@ -37,10 +37,34 @@ void transferMessage(unsigned char data){
 }
 
 char receiveMessage(){
-	if (!(UCSR0A & (1<<RXC0))){
-		return '\0';
+	if (rxBufferIndex > 0) {
+		char receivedChar = rxBuffer[0];
+		// Shift elements in the buffer
+		for (uint8_t i = 0; i < rxBufferIndex - 1; i++) {
+			rxBuffer[i] = rxBuffer[i + 1];
+		}
+		rxBufferIndex--;
+		return receivedChar;
+	}
+	return '\0';
+}
+
+ISR(USART_RX_vect){
+	char receivedData = UDR0;
+	rxBuffer[rxBufferIndex++] = receivedData;
+}
+
+ISR(USART_UDRE_vect){
+	if (txBufferIndex > 0) {
+		UDR0 = txBuffer[0];
+		// Shift elements in the buffer
+		for (uint8_t i = 0; i < txBufferIndex - 1; i++) {
+			txBuffer[i] = txBuffer[i + 1];
+		}
+		txBufferIndex--;
 		} else {
-		return UDR0;
+		// Disable UDRE interrupt if buffer is empty
+		UCSR0B &= ~(1 << UDRIE0);
 	}
 }
 

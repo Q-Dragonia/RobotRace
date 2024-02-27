@@ -15,7 +15,7 @@ main.d main.o: .././main.c \
  e:\programme\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay.h \
  e:\programme\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  e:\programme\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
- .././definitions.h .././adc.h .././usart.h
+ .././definitions.h .././adc.h .././usart.h .././movement.h .././servo.h
 
 e:\programme\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -54,3 +54,7 @@ e:\programme\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include
 .././adc.h:
 
 .././usart.h:
+
+.././movement.h:
+
+.././servo.h:
