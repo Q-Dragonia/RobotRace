@@ -13,7 +13,6 @@
 #include "adc.h"
 #include "usart.h"
 
-
 int main(void)
 {
     
@@ -22,10 +21,14 @@ int main(void)
 	//initCollision();
 	//initMovement();
 	//initServo();
+	
+	DDRB |= (1 << 2);
+	
 	sei();
 	
     while (1) 
     {
+		
 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
 		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
 		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
@@ -33,25 +36,41 @@ int main(void)
 		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL);
 		
 		// Convert distance to string
-		char buffer[80];
-		snprintf(buffer, sizeof(buffer), "%d %d %d %d %d \n", sensorLeft, lineTrackingSensorLeft, lineTrackingSensorMiddle, lineTrackingSensorRight, sensorRight);
-		
-		// Transmit distance over UART
-		for (int i = 0; buffer[i] != '\0'; i++) {
-			transferMessage(buffer[i]);
-		}
+// 		char buffer[80];
+// 		snprintf(buffer, sizeof(buffer), "%d %d %d %d %d \n", sensorLeft, lineTrackingSensorLeft, lineTrackingSensorMiddle, lineTrackingSensorRight, sensorRight);
+// 		
+// 		// Transmit distance over UART
+// 		for (int i = 0; buffer[i] != '\0'; i++) {
+// 			transferMessage(buffer[i]);
+// 		}
 
 		// Delay before next measurement
-		_delay_ms(10000);
 		
-		receivedMessage = recieveMessage();
+		char receivedMessage = receiveMessage();
 		
+		_delay_ms(100);
 		if(receivedMessage == 'A'){
-			/*CODE*/
+			PORTB |= (1 << 2);
+			receivedMessage = '\n';
 		}else if(receivedMessage == 'B'){
-			/*CODE*/
+			PORTB &= ~(1 << 2);
+			custom_delay_ms(5000);
+			PORTB |= (1 << 2);
+			receivedMessage = '\n';
 		}else if(receivedMessage == 'C'){
-			/*CODE*/
+			PORTB &= ~(1 << 2);
+			receivedMessage = '\n';
+		}else if(receivedMessage == '\0'){
+// 			transferMessage('I');
+// 			transferMessage(' ');
+// 			transferMessage('A');
+// 			transferMessage('M');
+// 			transferMessage(' ');
+// 			transferMessage('R');
+// 			transferMessage('E');
+// 			transferMessage('A');
+// 			transferMessage('D');
+// 			transferMessage('Y');
 		}else{
 			transferMessage('E');
 			transferMessage('R');
