@@ -28,4 +28,7 @@
 #define SERVO_MIN 999 //for 0.5 ms
 #define SERVO_MAX 4999 //for 2.5 ms
 #define SERVO_PIN PINB1
+
+char receivedMessage = '\0';
+
 #endif /* DEFINITIONS_H_ */
