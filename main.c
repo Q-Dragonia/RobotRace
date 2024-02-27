@@ -12,19 +12,22 @@
 #include "definitions.h"
 #include "adc.h"
 #include "usart.h"
-
+#include "servo.h"
+#include "movement.h"
 
 int main(void)
 {
     
 	init_ADC();
 	init_USART(MYUBRR);
-	init_servo_PWM()
+	init_driving_PWM();
+	init_servo_PWM();
 	//initCollision();
 	//initMovement();
 	sei();
 	servo_set_angle(0,180);
 	int16_t i = 0;
+	DDRB |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
     while (1) 
     {
 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
@@ -53,6 +56,15 @@ int main(void)
 			servo_set_angle(i,180);
 			_delay_ms(40);
 		}
+		//example driving, subject to change
+		setMotorADirection(1);
+		setMotorASpeed(90);
+		setMotorBDirection(1);
+		setMotorBSpeed(90);
+		_delay_ms(2000);
+		setMotorASpeed(0);
+		setMotorBSpeed(0);
+		_delay_ms(2000);
     }
 }
 
