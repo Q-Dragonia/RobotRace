@@ -19,4 +19,8 @@
 #define SENSOR_LEFT_CHANNEL 0
 #define SENSOR_RIGHT_CHANNEL 3
 
+#define PWM_TOP 39999 // Period of the PWM signal for the servo (20ms)
+#define SERVO_MIN 999 //for 0.5 ms
+#define SERVO_MAX 4999 //for 2.5 ms
+#define SERVO_PIN PINB1
 #endif /* DEFINITIONS_H_ */

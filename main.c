@@ -19,11 +19,12 @@ int main(void)
     
 	init_ADC();
 	init_USART(MYUBRR);
+	init_servo_PWM()
 	//initCollision();
 	//initMovement();
-	//initServo();
 	sei();
-	
+	servo_set_angle(0,180);
+	int16_t i = 0;
     while (1) 
     {
 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
@@ -43,6 +44,15 @@ int main(void)
 
 		// Delay before next measurement
 		_delay_ms(10000);
+		//Servo move angle(subject to change)
+		for(i = 0; i<=180;i++){
+			servo_set_angle(i,180);
+			_delay_ms(40);
+		}
+		for (i=180;i>=0;i--){
+			servo_set_angle(i,180);
+			_delay_ms(40);
+		}
     }
 }
 
