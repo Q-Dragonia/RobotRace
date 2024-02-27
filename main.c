@@ -27,7 +27,7 @@ int main(void)
 	sei();
 	servo_set_angle(0,180);
 	int16_t i = 0;
-	DDRB |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
+	DDRD |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
     while (1) 
     {
 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
