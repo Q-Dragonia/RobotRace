@@ -24,7 +24,7 @@
 #define B_DIRECTION_PIN PD4 // Left motor direction pin
 #define B_SPEED_PIN PD5     // Left motor speed pin
 
-#define PWM_TOP 39999 // Period of the PWM signal for the servo (20ms)
+#define SERVO_PWM_TOP 39999 // Period of the PWM signal for the servo (20ms)
 #define SERVO_MIN 999 //for 0.5 ms
 #define SERVO_MAX 4999 //for 2.5 ms
 #define SERVO_PIN PINB1
