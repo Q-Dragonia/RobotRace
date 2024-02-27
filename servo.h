@@ -11,6 +11,7 @@
 
 #include "definitions.h"
 
+volatile static uint8_t update_pwm_ready = 0;
 void init_servo_PWM() {
 	DDRB |= (1 << SERVO_PIN);//set as output
 	
