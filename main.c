@@ -51,13 +51,13 @@ int main(void)
 		
 		PORTB |= (1 << 2);
 		
-		//int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
-		int sensorLeft = white_limit;
+		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
 		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 140;
 		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 110;
 		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
-		int sensorRight = black_limit;
-		//int sensorRight = readADC(SENSOR_RIGHT_CHANNEL);
+		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL);
+		
+		_delay_ms(100);
 		
 		// Convert distance to string
 		char buffer[80];
