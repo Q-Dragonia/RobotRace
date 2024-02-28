@@ -32,7 +32,7 @@
 #define SERVO_PIN PINB1
 
 #define WHITE 460
-#define BLACK 600
+#define BLACK 800
 
 char receivedMessage = '\0';
 

@@ -35,6 +35,8 @@ int main(void)
 	
 	setMotorADirection(1);
 	setMotorBDirection(1);
+	setMotorASpeed(0);
+	setMotorBSpeed(0);
 	
 	sei();
 	
@@ -52,13 +54,11 @@ int main(void)
 // 			_delay_ms(40);
 // 		}
 		
-		//PORTB |= (1 << 2);
-		
-		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
-		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 140;
-		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 110;
+		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL) + 40;
+		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 120;
+		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90;
 		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
-		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL);
+		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL) + 40;
 		
 		custom_delay_ms(50);
 		
@@ -70,23 +70,46 @@ int main(void)
 		for (int i = 0; buffer[i] != '\0'; i++) {
 			transferMessage(buffer[i]);
 		}
-		custom_delay_ms(50);
+		-_delay_ms(20);
 		// Delay before next measurement
 		
 		char receivedMessage = receiveMessage();
 		
-		custom_delay_ms(10);
+		_delay_ms(10);
 		if(receivedMessage == 'A'){
-			PORTB |= (1 << 2);
-			receivedMessage = '\n';
+			
+			if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
+				setMotorASpeed(70); // RIGHT
+				setMotorBSpeed(70); // LEFT
+				}else{
+				if(sensorLeft < white_limit){
+					if(lineTrackingSensorLeft < white_limit){
+						setMotorASpeed(60); // RIGHT
+						setMotorBSpeed(25); // LEFT
+						}else{
+						setMotorASpeed(50); // RIGHT
+						setMotorBSpeed(25); // LEFT
+					}
+				}
+				if(sensorRight > black_limit){
+					if(lineTrackingSensorRight > black_limit){
+						setMotorASpeed(25); // RIGHT
+						setMotorBSpeed(60); // LEFT
+						}else{
+						setMotorASpeed(15); // RIGHT
+						setMotorBSpeed(60); // LEFT
+					}
+				}
+			}
 		}else if(receivedMessage == 'B'){
-			PORTB &= ~(1 << 2);
+			setMotorASpeed(0);
+			setMotorBSpeed(0);
+			setMotorBDirection(0);
 			custom_delay_ms(5000);
-			PORTB |= (1 << 2);
-			receivedMessage = '\n';
+			receivedMessage = 'A';
 		}else if(receivedMessage == 'C'){
-			PORTB &= ~(1 << 2);
-			receivedMessage = '\n';
+			setMotorASpeed(0);
+			setMotorBSpeed(0);
 		}else if(receivedMessage == '\0'){
 			transferMessage('I');
 			transferMessage(' ');
@@ -104,49 +127,6 @@ int main(void)
 			transferMessage('R');
 			transferMessage('O');
 			transferMessage('R');
-		}
-
-		_delay_ms(10);
-		if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
-			setMotorASpeed(90); // RIGHT
-			setMotorBSpeed(90); // LEFT
-		}else{
-			if(sensorLeft < white_limit){
-				if(lineTrackingSensorLeft < white_limit){
-					setMotorASpeed(45); // RIGHT
-					setMotorBSpeed(90); // LEFT
-				}else{
-					setMotorASpeed(75); // RIGHT
-					setMotorBSpeed(90); // LEFT
-				}
-			}
-			if(sensorRight > black_limit){
-				if(lineTrackingSensorRight > black_limit){
-					setMotorASpeed(90); // RIGHT
-					setMotorBSpeed(45); // LEFT
-				}else{
-					setMotorASpeed(90); // RIGHT
-					setMotorBSpeed(45); // LEFT
-				}
-			}
-			if(sensorRight < white_limit){
-				if(lineTrackingSensorRight > black_limit){
-					setMotorASpeed(90); // RIGHT
-					setMotorBSpeed(45); // LEFT
-					}else{
-						setMotorASpeed(90); // RIGHT
-						setMotorBSpeed(45); // LEFT
-					}
-			}
-			if(sensorLeft > black_limit){
-				if(lineTrackingSensorRight > black_limit){
-					setMotorASpeed(45); // RIGHT
-					setMotorBSpeed(90); // LEFT
-					}else{
-					setMotorASpeed(75); // RIGHT
-					setMotorBSpeed(90); // LEFT
-					}
-			}
 		}
 		_delay_ms(100);
 		//example driving, subject to change
