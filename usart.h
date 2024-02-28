@@ -35,7 +35,9 @@ void transferMessage(unsigned char data){
 
 char receiveMessage(){
 	// Wait for data to be received
-	while (!(UCSR0A & (1<<RXC0)));
+	if (!(UCSR0A & (1 << RXC0))) {
+		return '\0';
+	}
 	// Get and return received data from buffer
 	return UDR0;
 }

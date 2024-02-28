@@ -33,6 +33,9 @@ int main(void)
 	//int16_t i = 0;
 	DDRB |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
 	
+	setMotorADirection(1);
+	setMotorBDirection(1);
+	
 	sei();
 	
   while (1) 
@@ -49,7 +52,7 @@ int main(void)
 // 			_delay_ms(40);
 // 		}
 		
-		PORTB |= (1 << 2);
+		//PORTB |= (1 << 2);
 		
 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
 		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 140;
@@ -57,7 +60,7 @@ int main(void)
 		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
 		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL);
 		
-		_delay_ms(100);
+		custom_delay_ms(50);
 		
 		// Convert distance to string
 		char buffer[80];
@@ -67,12 +70,12 @@ int main(void)
 		for (int i = 0; buffer[i] != '\0'; i++) {
 			transferMessage(buffer[i]);
 		}
-
+		custom_delay_ms(50);
 		// Delay before next measurement
 		
-		char receivedMessage = 'A';
+		char receivedMessage = receiveMessage();
 		
-		_delay_ms(10);
+		custom_delay_ms(10);
 		if(receivedMessage == 'A'){
 			PORTB |= (1 << 2);
 			receivedMessage = '\n';
@@ -104,26 +107,46 @@ int main(void)
 		}
 
 		_delay_ms(10);
-		if(sensorLeft > WHITE && lineTrackingSensorLeft > WHITE && lineTrackingSensorRight < BLACK && sensorRight < BLACK){
-			setMotorADirection(1);
-			setMotorASpeed(90);
-			setMotorBDirection(1);
-			setMotorBSpeed(90);
+		if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
+			setMotorASpeed(90); // RIGHT
+			setMotorBSpeed(90); // LEFT
 		}else{
-			setMotorASpeed(0);
-			setMotorBSpeed(0);
-		}
-		if(sensorLeft < white_limit){
-			if(lineTrackingSensorLeft < white_limit){
-				//code
+			if(sensorLeft < white_limit){
+				if(lineTrackingSensorLeft < white_limit){
+					setMotorASpeed(45); // RIGHT
+					setMotorBSpeed(90); // LEFT
+				}else{
+					setMotorASpeed(75); // RIGHT
+					setMotorBSpeed(90); // LEFT
+				}
 			}
-			//code
-		}
-		if(sensorRight > black_limit){
-			if(lineTrackingSensorRight > black_limit){
-				//code
+			if(sensorRight > black_limit){
+				if(lineTrackingSensorRight > black_limit){
+					setMotorASpeed(90); // RIGHT
+					setMotorBSpeed(45); // LEFT
+				}else{
+					setMotorASpeed(90); // RIGHT
+					setMotorBSpeed(45); // LEFT
+				}
 			}
-			//code
+			if(sensorRight < white_limit){
+				if(lineTrackingSensorRight > black_limit){
+					setMotorASpeed(90); // RIGHT
+					setMotorBSpeed(45); // LEFT
+					}else{
+						setMotorASpeed(90); // RIGHT
+						setMotorBSpeed(45); // LEFT
+					}
+			}
+			if(sensorLeft > black_limit){
+				if(lineTrackingSensorRight > black_limit){
+					setMotorASpeed(45); // RIGHT
+					setMotorBSpeed(90); // LEFT
+					}else{
+					setMotorASpeed(75); // RIGHT
+					setMotorBSpeed(90); // LEFT
+					}
+			}
 		}
 		_delay_ms(100);
 		//example driving, subject to change
