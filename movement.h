@@ -43,18 +43,18 @@ void setMotorBSpeed(uint8_t speed) {
 // Function to control direction of motor A
 void setMotorADirection(uint8_t direction) {
 	if (direction == 1) { // Forward
-		PORTD |= (1 << A_DIRECTION_PIN); // Set A_DIRECTION_PIN
+		PORTB |= (1 << A_DIRECTION_PIN); // Set A_DIRECTION_PIN
 		} else { // Reverse
-		PORTD &= ~(1 << A_DIRECTION_PIN); // Clear A_DIRECTION_PIN
+		PORTB &= ~(1 << A_DIRECTION_PIN); // Clear A_DIRECTION_PIN
 	}
 }
 
 // Function to control direction of motor B
 void setMotorBDirection(uint8_t direction) {
 	if (direction == 1) { // Forward
-		PORTD |= (1 << B_DIRECTION_PIN); // Set B_DIRECTION_PIN
+		PORTB |= (1 << B_DIRECTION_PIN); // Set B_DIRECTION_PIN
 		} else { // Reverse
-		PORTD &= ~(1 << B_DIRECTION_PIN); // Clear B_DIRECTION_PIN
+		PORTB &= ~(1 << B_DIRECTION_PIN); // Clear B_DIRECTION_PIN
 	}
 }
 

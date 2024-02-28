@@ -13,7 +13,7 @@
 #include "adc.h"
 #include "usart.h"
 #include "movement.h"
-#include "servo.h"
+//#include "servo.h"
 
 int main(void)
 {
@@ -21,17 +21,17 @@ int main(void)
 	init_ADC();
 	init_USART(MYUBRR);
  	init_driving_PWM();
- 	init_servo_PWM();
+ 	//init_servo_PWM();
 	
 	DDRB |= (1 << 2);
 	
 	
 	int white_limit = (int)(WHITE + 30);
 	int black_limit = (int)(BLACK - 30);
-	servo_set_angle(0,180);
+	//servo_set_angle(0,180);
 	PORTB |= (1 << 2);
-	int16_t i = 0;
-	DDRD |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
+	//int16_t i = 0;
+	DDRB |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
 	
 	sei();
 	
@@ -40,14 +40,14 @@ int main(void)
 		
 		
 		//Servo move angle(subject to change)
-		for(i = 0; i<=180;i++){
-			servo_set_angle(i,180);
-			_delay_ms(40);
-		}
-		for (i=180;i>=0;i--){
-			servo_set_angle(i,180);
-			_delay_ms(40);
-		}
+// 		for(i = 0; i<=180;i++){
+// 			servo_set_angle(i,180);
+// 			_delay_ms(40);
+// 		}
+// 		for (i=180;i>=0;i--){
+// 			servo_set_angle(i,180);
+// 			_delay_ms(40);
+// 		}
 		
 		PORTB |= (1 << 2);
 		
@@ -106,12 +106,12 @@ int main(void)
 		_delay_ms(10);
 		if(sensorLeft > WHITE && lineTrackingSensorLeft > WHITE && lineTrackingSensorRight < BLACK && sensorRight < BLACK){
 			setMotorADirection(1);
-			setMotorASpeed(0);
-			setMotorBDirection(1);
-			setMotorBSpeed(0);
-		}else{
 			setMotorASpeed(90);
+			setMotorBDirection(1);
 			setMotorBSpeed(90);
+		}else{
+			setMotorASpeed(0);
+			setMotorBSpeed(0);
 		}
 		if(sensorLeft < white_limit){
 			if(lineTrackingSensorLeft < white_limit){

@@ -19,9 +19,9 @@
 #define SENSOR_LEFT_CHANNEL 0
 #define SENSOR_RIGHT_CHANNEL 3
 
-#define A_DIRECTION_PIN PD2 // Right motor direction pin
+#define A_DIRECTION_PIN PB2 // Right motor direction pin
 #define A_SPEED_PIN PD6     // Right motor speed pin
-#define B_DIRECTION_PIN PD4 // Left motor direction pin
+#define B_DIRECTION_PIN PB3 // Left motor direction pin
 #define B_SPEED_PIN PD5     // Left motor speed pin
 
 #define SERVO_MAX_PULSE 2500  // in microseconds (2.5 ms)
