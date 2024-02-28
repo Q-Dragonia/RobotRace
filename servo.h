@@ -11,7 +11,6 @@
 
 #include "definitions.h"
 
-volatile static uint8_t update_pwm_ready = 0;
 void init_servo_PWM() {
 	DDRB |= (1 << SERVO_PIN);//set as output
 	
@@ -29,9 +28,10 @@ void init_servo_PWM() {
 }
 static void update_pwm(uint16_t i){
 	update_pwm_ready = 1;
-	while (update_pwm_ready !=0);
-	OCR1AH = (i & 0xFF00)>>8;//set high bits
-	OCR1AL = (i & 0x00FF);//set low bits
+	if (update_pwm_ready != 0) {
+		OCR1AH = (i & 0xFF00) >> 8; // set high bits
+		OCR1AL = (i & 0x00FF);      // set low bits
+	}
 }
 
 // Function to set servo angle
