@@ -42,8 +42,6 @@ int main(void)
 	
   while (1) 
     {
-		
-		
 		//Servo move angle(subject to change)
 // 		for(i = 0; i<=180;i++){
 // 			servo_set_angle(i,180);
