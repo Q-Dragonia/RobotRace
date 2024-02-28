@@ -68,7 +68,7 @@ int main(void)
 		for (int i = 0; buffer[i] != '\0'; i++) {
 			transferMessage(buffer[i]);
 		}
-		-_delay_ms(20);
+		_delay_ms(20);
 		// Delay before next measurement
 		
 		char receivedMessage = receiveMessage();
