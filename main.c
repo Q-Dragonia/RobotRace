@@ -24,6 +24,7 @@ int main(void)
  	//init_servo_PWM();
 	
 	DDRB |= (1 << 2);
+	int done = 1;
 	
 	
 	int white_limit = (int)(WHITE + 30);
@@ -73,38 +74,38 @@ int main(void)
 		
 		char receivedMessage = receiveMessage();
 		
-		_delay_ms(10);
-		if(receivedMessage == 'A'){
+		_delay_ms(20);
+		if(receivedMessage == 'A' || receivedMessage == 'B' && done == 1){
 			
+			if(receivedMessage == 'B' && done){
+				setMotorASpeed(0);
+				setMotorBSpeed(0);
+				custom_delay_ms(5000);
+				done = 0;
+			}
+			if(receivedMessage == 'A'){done = 1;}
 			if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
-				setMotorASpeed(70); // RIGHT
-				setMotorBSpeed(70); // LEFT
+				setMotorASpeed(driveSpeedFull); // RIGHT
+				setMotorBSpeed(driveSpeedFull); // LEFT
 				}else{
 				if(sensorLeft < white_limit){
 					if(lineTrackingSensorLeft < white_limit){
-						setMotorASpeed(60); // RIGHT
-						setMotorBSpeed(25); // LEFT
+						setMotorASpeed(driveSpeedTruning); // RIGHT
+						setMotorBSpeed(hardTurningSPeed); // LEFT
 						}else{
-						setMotorASpeed(50); // RIGHT
-						setMotorBSpeed(25); // LEFT
+						setMotorASpeed(driveSpeedTruning); // RIGHT
+						setMotorBSpeed(turningSpeed); // LEFT
 					}
-				}
-				if(sensorRight > black_limit){
+				}else if(sensorRight > black_limit){
 					if(lineTrackingSensorRight > black_limit){
-						setMotorASpeed(25); // RIGHT
-						setMotorBSpeed(60); // LEFT
+						setMotorASpeed(hardTurningSPeed); // RIGHT
+						setMotorBSpeed(driveSpeedTruning); // LEFT
 						}else{
-						setMotorASpeed(15); // RIGHT
-						setMotorBSpeed(60); // LEFT
+						setMotorASpeed(turningSpeed); // RIGHT
+						setMotorBSpeed(driveSpeedTruning); // LEFT
 					}
 				}
 			}
-		}else if(receivedMessage == 'B'){
-			setMotorASpeed(0);
-			setMotorBSpeed(0);
-			setMotorBDirection(0);
-			custom_delay_ms(5000);
-			receivedMessage = 'A';
 		}else if(receivedMessage == 'C'){
 			setMotorASpeed(0);
 			setMotorBSpeed(0);
