@@ -7,7 +7,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 
 #include "definitions.h"
 #include "adc.h"
@@ -24,7 +24,7 @@ int main(void)
  	//init_servo_PWM();
 	
 	DDRB |= (1 << 2);
-	int done = 1;
+	char var;
 	
 	
 	int white_limit = (int)(WHITE + 30);
@@ -53,59 +53,66 @@ int main(void)
 // 			_delay_ms(40);
 // 		}
 		
-		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL) + 40;
-		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 120;
-		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90;
-		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
-		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL) + 40;
-		
-		custom_delay_ms(50);
-		
-		// Convert distance to string
-		char buffer[80];
-		snprintf(buffer, sizeof(buffer), "%d %d %d %d %d \n", sensorLeft, lineTrackingSensorLeft, lineTrackingSensorMiddle, lineTrackingSensorRight, sensorRight);
-		
-		// Transmit distance over UART
-		for (int i = 0; buffer[i] != '\0'; i++) {
-			transferMessage(buffer[i]);
-		}
-		_delay_ms(20);
+// 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
+// 		int lineTrackingSensorLeft = (readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100);
+// 		int lineTrackingSensorMiddle = (readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90);
+// 		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
+// 		int sensorRight = (readADC(SENSOR_RIGHT_CHANNEL) + 40);
+// 		
+// 		custom_delay_ms(50);
+// 		
+// 		// Convert distance to string
+// 		char buffer[80];
+// 		snprintf(buffer, sizeof(buffer), "%d %d %d %d %d \n", sensorLeft, lineTrackingSensorLeft, lineTrackingSensorMiddle, lineTrackingSensorRight, sensorRight);
+// 		
+// 		// Transmit distance over UART
+// 		for (int i = 0; buffer[i] != '\0'; i++) {
+// 			transferMessage(buffer[i]);
+// 		}
+// 		_delay_ms(20);
 		// Delay before next measurement
-		
-		char receivedMessage = receiveMessage();
+		var = receiveMessage();
+		if(var != '\0'){receivedMessage = var;}
 		
 		_delay_ms(20);
-		if(receivedMessage == 'A' || receivedMessage == 'B' && done == 1){
-			
-			if(receivedMessage == 'B' && done){
-				setMotorASpeed(0);
-				setMotorBSpeed(0);
-				custom_delay_ms(5000);
-				done = 0;
-			}
-			if(receivedMessage == 'A'){done = 1;}
-			if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
+		if(receivedMessage == 'A'){
+			if(readADC(SENSOR_LEFT_CHANNEL) > white_limit && (readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100) > white_limit && (readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90) > white_limit && (readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90) < black_limit && readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) < black_limit && (readADC(SENSOR_RIGHT_CHANNEL) + 40) < black_limit){
+				_delay_ms(10);
 				setMotorASpeed(driveSpeedFull); // RIGHT
 				setMotorBSpeed(driveSpeedFull); // LEFT
+				_delay_ms(10);
 				}else{
-				if(sensorLeft < white_limit){
-					if(lineTrackingSensorLeft < white_limit){
-						setMotorASpeed(driveSpeedTruning); // RIGHT
-						setMotorBSpeed(hardTurningSPeed); // LEFT
-						}else{
-						setMotorASpeed(driveSpeedTruning); // RIGHT
-						setMotorBSpeed(turningSpeed); // LEFT
-					}
-				}else if(sensorRight > black_limit){
-					if(lineTrackingSensorRight > black_limit){
+				if(readADC(SENSOR_LEFT_CHANNEL) < white_limit){
+					if((readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100) < white_limit){
+						_delay_ms(10);
 						setMotorASpeed(hardTurningSPeed); // RIGHT
 						setMotorBSpeed(driveSpeedTruning); // LEFT
+						_delay_ms(10);
 						}else{
-						setMotorASpeed(turningSpeed); // RIGHT
-						setMotorBSpeed(driveSpeedTruning); // LEFT
+							_delay_ms(10);
+							setMotorASpeed(turningSpeed); // RIGHT
+							setMotorBSpeed(driveSpeedTruning); // LEFT
+							_delay_ms(10);
+					}
+				}else if((readADC(SENSOR_RIGHT_CHANNEL) + 40) > black_limit){
+					if(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) > black_limit){
+						_delay_ms(10);
+						setMotorASpeed(driveSpeedTruning); // RIGHT
+						setMotorBSpeed(hardTurningSPeed); // LEFT
+						_delay_ms(10);
+						}else{
+							_delay_ms(10);
+							setMotorASpeed(driveSpeedTruning); // RIGHT
+							setMotorBSpeed(turningSpeed); // LEFT
+							_delay_ms(10);
 					}
 				}
 			}
+		}else if(receivedMessage == 'B'){
+			setMotorASpeed(0);
+			setMotorBSpeed(0);
+			_delay_ms(5000);
+			receivedMessage = 'A';
 		}else if(receivedMessage == 'C'){
 			setMotorASpeed(0);
 			setMotorBSpeed(0);
@@ -129,13 +136,5 @@ int main(void)
 		}
 		_delay_ms(100);
 		//example driving, subject to change
-// 		setMotorADirection(1);
-// 		setMotorASpeed(90);
-// 		setMotorBDirection(1);
-// 		setMotorBSpeed(90);
-// 		_delay_ms(2000);
-// 		setMotorASpeed(0);
-// 		setMotorBSpeed(0);
-// 		_delay_ms(2000);
     }
 }

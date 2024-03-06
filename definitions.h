@@ -31,13 +31,13 @@
 #define SERVO_MAX 4999 //for 2.5 ms
 #define SERVO_PIN PINB1
 
-#define WHITE 520
-#define BLACK 800
+#define WHITE 400
+#define BLACK 780
 
-int driveSpeedFull = 0;
-int driveSpeedTruning = 70;
-int turningSpeed = 40;
-int hardTurningSPeed = 20;
+int driveSpeedFull = 200;
+int driveSpeedTruning = 80;
+int turningSpeed = 120;
+int hardTurningSPeed = 160;
 
 char receivedMessage = '\0';
 
