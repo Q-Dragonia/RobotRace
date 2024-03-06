@@ -29,7 +29,6 @@ int main(void)
 	
 	int white_limit = (int)(WHITE + 30);
 	int black_limit = (int)(BLACK - 30);
-	char receivedMessage;
 	//servo_set_angle(0,180);
 	PORTB |= (1 << 2);
 	//int16_t i = 0;
@@ -72,11 +71,11 @@ int main(void)
 		}
 		_delay_ms(20);
 		// Delay before next measurement
-		char var = receiveMessage();
-		if(var != '\0'){receivedMessage = var;}
+		
+		char receivedMessage = receiveMessage();
 		
 		_delay_ms(20);
-		if(receivedMessage == 'A'){
+		if(receivedMessage == 'A' || receivedMessage == 'B'){
 		if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
 			setMotorASpeed(driveSpeedFull); // RIGHT
 			setMotorBSpeed(driveSpeedFull); // LEFT
@@ -107,6 +106,23 @@ int main(void)
 		}else if(receivedMessage == 'C'){
 			setMotorASpeed(0);
 			setMotorBSpeed(0);
+		}else if(receivedMessage == '\0'){
+			transferMessage('I');
+			transferMessage(' ');
+			transferMessage('A');
+			transferMessage('M');
+			transferMessage(' ');
+			transferMessage('R');
+			transferMessage('E');
+			transferMessage('A');
+			transferMessage('D');
+			transferMessage('Y');
+		}else{
+			transferMessage('E');
+			transferMessage('R');
+			transferMessage('R');
+			transferMessage('O');
+			transferMessage('R');
 		}
 		//_delay_ms(100);
 		//example driving, subject to change
