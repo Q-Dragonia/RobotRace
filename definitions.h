@@ -34,10 +34,10 @@
 #define WHITE 520
 #define BLACK 800
 
-int driveSpeedFull = 0;
-int driveSpeedTruning = 70;
-int turningSpeed = 40;
-int hardTurningSPeed = 20;
+int driveSpeedFull = 255;
+int driveSpeedTruning = 255;
+int turningSpeed = 255;
+int hardTurningSPeed = 255;
 
 char receivedMessage = '\0';
 

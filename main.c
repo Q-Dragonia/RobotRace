@@ -53,8 +53,8 @@ int main(void)
 // 			_delay_ms(40);
 // 		}
 		
-		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL) + 40;
-		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 120;
+		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
+		int lineTrackingSensorLeft = readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100;
 		int lineTrackingSensorMiddle = readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90;
 		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
 		int sensorRight = readADC(SENSOR_RIGHT_CHANNEL) + 40;
@@ -75,19 +75,11 @@ int main(void)
 		char receivedMessage = receiveMessage();
 		
 		_delay_ms(20);
-		if(receivedMessage == 'A' || receivedMessage == 'B' && done == 1){
-			
-			if(receivedMessage == 'B' && done){
-				setMotorASpeed(0);
-				setMotorBSpeed(0);
-				custom_delay_ms(5000);
-				done = 0;
-			}
-			if(receivedMessage == 'A'){done = 1;}
-			if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
-				setMotorASpeed(driveSpeedFull); // RIGHT
-				setMotorBSpeed(driveSpeedFull); // LEFT
-				}else{
+		if(receivedMessage == 'A' || receivedMessage == 'B'){
+		if(sensorLeft > white_limit && lineTrackingSensorLeft > white_limit && lineTrackingSensorMiddle > white_limit && lineTrackingSensorMiddle < black_limit && lineTrackingSensorRight < black_limit && sensorRight < black_limit){
+			setMotorASpeed(driveSpeedFull); // RIGHT
+			setMotorBSpeed(driveSpeedFull); // LEFT
+			}else{
 				if(sensorLeft < white_limit){
 					if(lineTrackingSensorLeft < white_limit){
 						setMotorASpeed(driveSpeedTruning); // RIGHT
@@ -106,6 +98,11 @@ int main(void)
 					}
 				}
 			}
+		}else if(receivedMessage == 'B'){
+			setMotorASpeed(0);
+			setMotorBSpeed(0);
+			_delay_ms(5000);
+			receivedMessage = 'A';
 		}else if(receivedMessage == 'C'){
 			setMotorASpeed(0);
 			setMotorBSpeed(0);
@@ -127,7 +124,7 @@ int main(void)
 			transferMessage('O');
 			transferMessage('R');
 		}
-		_delay_ms(100);
+		//_delay_ms(100);
 		//example driving, subject to change
 // 		setMotorADirection(1);
 // 		setMotorASpeed(90);
