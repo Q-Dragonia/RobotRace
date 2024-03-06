@@ -37,9 +37,8 @@ char receiveMessage(){
 	// Wait for data to be received
 	if (!(UCSR0A & (1 << RXC0))) {
 		return '\0';
-	}
+	}else{return UDR0;}
 	// Get and return received data from buffer
-	return UDR0;
 }
 
 #endif /* USART_H_ */
