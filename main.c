@@ -12,8 +12,7 @@
 #include "definitions.h"
 #include "adc.h"
 #include "usart.h"
-#include "movement.h"
-//#include "servo.h"
+#include "turning.h"
 
 int main(void)
 {
@@ -21,18 +20,8 @@ int main(void)
 	init_ADC();
 	init_USART(MYUBRR);
  	init_driving_PWM();
- 	//init_servo_PWM();
 	
-	DDRB |= (1 << 2);
 	char var;
-	
-	
-	int white_limit = (int)(WHITE + 30);
-	int black_limit = (int)(BLACK - 30);
-	//servo_set_angle(0,180);
-	PORTB |= (1 << 2);
-	//int16_t i = 0;
-	DDRB |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
 	
 	setMotorADirection(1);
 	setMotorBDirection(1);
@@ -53,18 +42,22 @@ int main(void)
 // 			_delay_ms(40);
 // 		}
 		
-// 		int sensorLeft = readADC(SENSOR_LEFT_CHANNEL);
-// 		int lineTrackingSensorLeft = (readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100);
-// 		int lineTrackingSensorMiddle = (readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90);
-// 		int lineTrackingSensorRight = readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL);
-// 		int sensorRight = (readADC(SENSOR_RIGHT_CHANNEL) + 40);
-// 		
-// 		custom_delay_ms(50);
-// 		
-// 		// Convert distance to string
+		int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
+		int lineTrackingSensorLeft = (int)readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
+		int lineTrackingSensorMiddle = (int)readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
+		int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) - 30);
+		int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL) - 20);
+		
+		int averageValue = (sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5;
+		
+		custom_delay_ms(20);
+		
+		move(averageValue);
+		
+		// Convert distance to string
 // 		char buffer[80];
 // 		snprintf(buffer, sizeof(buffer), "%d %d %d %d %d \n", sensorLeft, lineTrackingSensorLeft, lineTrackingSensorMiddle, lineTrackingSensorRight, sensorRight);
-// 		
+// 				
 // 		// Transmit distance over UART
 // 		for (int i = 0; buffer[i] != '\0'; i++) {
 // 			transferMessage(buffer[i]);
@@ -76,65 +69,16 @@ int main(void)
 		
 		_delay_ms(20);
 		if(receivedMessage == 'A'){
-			if(readADC(SENSOR_LEFT_CHANNEL) > white_limit && (readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100) > white_limit && (readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90) > white_limit && (readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL) + 90) < black_limit && readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) < black_limit && (readADC(SENSOR_RIGHT_CHANNEL) + 40) < black_limit){
-				_delay_ms(10);
-				setMotorASpeed(driveSpeedFull); // RIGHT
-				setMotorBSpeed(driveSpeedFull); // LEFT
-				_delay_ms(10);
-				}else{
-				if(readADC(SENSOR_LEFT_CHANNEL) < white_limit){
-					if((readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL) + 100) < white_limit){
-						_delay_ms(10);
-						setMotorASpeed(hardTurningSPeed); // RIGHT
-						setMotorBSpeed(driveSpeedTruning); // LEFT
-						_delay_ms(10);
-						}else{
-							_delay_ms(10);
-							setMotorASpeed(turningSpeed); // RIGHT
-							setMotorBSpeed(driveSpeedTruning); // LEFT
-							_delay_ms(10);
-					}
-				}else if((readADC(SENSOR_RIGHT_CHANNEL) + 40) > black_limit){
-					if(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) > black_limit){
-						_delay_ms(10);
-						setMotorASpeed(driveSpeedTruning); // RIGHT
-						setMotorBSpeed(hardTurningSPeed); // LEFT
-						_delay_ms(10);
-						}else{
-							_delay_ms(10);
-							setMotorASpeed(driveSpeedTruning); // RIGHT
-							setMotorBSpeed(turningSpeed); // LEFT
-							_delay_ms(10);
-					}
-				}
-			}
+			transferMessage(receivedMessage);
 		}else if(receivedMessage == 'B'){
 			setMotorASpeed(0);
 			setMotorBSpeed(0);
-			_delay_ms(5000);
+			custom_delay_ms(5000);
 			receivedMessage = 'A';
 		}else if(receivedMessage == 'C'){
 			setMotorASpeed(0);
 			setMotorBSpeed(0);
-		}else if(receivedMessage == '\0'){
-			transferMessage('I');
-			transferMessage(' ');
-			transferMessage('A');
-			transferMessage('M');
-			transferMessage(' ');
-			transferMessage('R');
-			transferMessage('E');
-			transferMessage('A');
-			transferMessage('D');
-			transferMessage('Y');
-		}else{
-			transferMessage('E');
-			transferMessage('R');
-			transferMessage('R');
-			transferMessage('O');
-			transferMessage('R');
-		}
-		_delay_ms(100);
+		}//else{transferMessage('D');}
 		//example driving, subject to change
     }
 }
