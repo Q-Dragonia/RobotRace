@@ -20,6 +20,8 @@ void init_driving_PWM() {
 
 	// Set prescaler to 64
 	TCCR0B |= (1 << CS01) | (1 << CS00);
+	
+	DDRB |= (1 << A_DIRECTION_PIN) | (1 << B_DIRECTION_PIN); //set direction pins as output
 }
 
 // Function to set speed of motor A
