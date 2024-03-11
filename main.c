@@ -20,6 +20,8 @@ int main(void)
 	init_ADC();
 	init_USART(MYUBRR);
  	init_driving_PWM();
+	ultrasonic_init();
+	pwm_init();
 	
 	char var;
 	
@@ -29,18 +31,49 @@ int main(void)
 	setMotorBSpeed(0);
 	
 	sei();
-	
+	int16_t i = 0;
   while (1) 
     {
-		//Servo move angle(subject to change)
-// 		for(i = 0; i<=180;i++){
-// 			servo_set_angle(i,180);
-// 			_delay_ms(40);
-// 		}
-// 		for (i=180;i>=0;i--){
-// 			servo_set_angle(i,180);
-// 			_delay_ms(40);
-// 		}
+		for (i = 45; i <= 135; i++) {
+			servo_set_angle(i, 180);
+			_delay_ms(100);
+			
+
+			// Measure distance
+			int distance = measure_distance();
+
+			// Convert distance to string
+			char arr[20];
+			snprintf(arr, sizeof(arr), "%d \n", distance);
+
+			// Transmit distance over UART
+			for (int i = 0; arr[i] != '\0'; i++) {
+				USART_Transmit(arr[i]);
+			}
+
+			// Delay to control the update rate
+			_delay_ms(100);
+		}
+		for (i = 135; i >= 45; i--) {
+			servo_set_angle(i, 180);
+			_delay_ms(100);
+			
+
+			// Measure distance
+			int distance = measure_distance();
+
+			// Convert distance to string
+			char arr[20];
+			snprintf(arr, sizeof(arr), "%d \n", distance);
+
+			// Transmit distance over UART
+			for (int i = 0; arr[i] != '\0'; i++) {
+				USART_Transmit(arr[i]);
+			}
+
+			// Delay to control the update rate
+			_delay_ms(100);
+		}
 		
 		int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
 		int lineTrackingSensorLeft = (int)readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
