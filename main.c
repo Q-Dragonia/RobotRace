@@ -23,9 +23,10 @@ int main(void)
 	init_USART(MYUBRR);
  	init_driving_PWM();
 	ultrasonic_init();
-	pwm_init();
+	timer1_init();
 	int16_t i = 0;
 	char var;
+	int distance;
 	
 	setMotorADirection(1);
 	setMotorBDirection(1);
@@ -48,9 +49,19 @@ int main(void)
 			
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
 			
-			int a = collision(i);
+			distance = measure_distance();
+			transferMessage(distance);
+			custom_delay_ms(10);
+			custom_delay_ms(10);
+			if(distance < 60){
+				setMotorBSpeed(0);
+				setMotorASpeed(0);
+				distance = measure_distance();
+			}else			{
+			
 			move(averageValue);
-			a=0;
+			
+		}
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
 		}

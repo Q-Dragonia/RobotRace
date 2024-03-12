@@ -10,13 +10,18 @@
 #define COLLISION_H_
 
 #include "servo.h"
+#include "usart.h"
 
 void ultrasonic_init() {
 	// Set trigger pin as output and echo pin as input for ultrasonic sensor
 	DDRB |= (1 << TRIG_PIN); // Trigger pin as output
 	DDRB &= ~(1 << ECHO_PIN); // Echo pin as input
 }
-
+void timer1_init(){
+	TCCR1A = 0;
+	TCCR1B |= (0b010<<CS10);
+	
+}
 int measure_distance() {
 	// Send a 10us pulse to the ultrasonic sensor
 	PORTB |= (1 << TRIG_PIN);
@@ -30,58 +35,11 @@ int measure_distance() {
 	int time = TCNT1/2;
 
 	// Calculate distance in cm
-	int distance = (time / 29);
+	int distance = (int)(time / 29);
 
 	return distance;
 }
-int collision(int16_t i){
-	
-	for (i = 45; i <= 135; i++) {
-		servo_set_angle(i, 180);
-		_delay_ms(100);
-		
 
-		// Measure distance
-		int distance = measure_distance();
-		
-		// Convert distance to string
-		char arr[20];
-		snprintf(arr, sizeof(arr), "%d \n", distance);
-
-		// Transmit distance over UART
-		for (int i = 0; arr[i] != '\0'; i++) {
-			USART_Transmit(arr[i]);
-		}
-		if(distance<45){
-			return 1;
-		}
-		// Delay to control the update rate
-		_delay_ms(100);
-	}
-	for (i = 135; i >= 45; i--) {
-		servo_set_angle(i, 180);
-		_delay_ms(100);
-		
-
-		// Measure distance
-		int distance = measure_distance();
-		
-		// Convert distance to string
-		char arr[20];
-		snprintf(arr, sizeof(arr), "%d \n", distance);
-
-		// Transmit distance over UART
-		for (int i = 0; arr[i] != '\0'; i++) {
-			USART_Transmit(arr[i]);
-		}
-
-		// Delay to control the update rate
-		_delay_ms(100);
-		if(distance<45){
-			return 1;
-		}
-	}
-}
 
 
 #endif /* COLLISION_H_ */
