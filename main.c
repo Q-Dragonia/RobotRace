@@ -52,15 +52,13 @@ int main(void)
 			distance = measure_distance();
 			transferMessage(distance);
 			custom_delay_ms(10);
-			custom_delay_ms(10);
 			if(distance < 60){
 				setMotorBSpeed(0);
 				setMotorASpeed(0);
 				distance = measure_distance();
-			}else			{
-			
+				custom_delay_ms(10);
+			}else{
 			move(averageValue);
-			
 		}
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
