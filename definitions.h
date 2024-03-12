@@ -24,31 +24,32 @@
 #define B_DIRECTION_PIN PB3 // Left motor direction pin
 #define B_SPEED_PIN PD5     // Left motor speed pin
 
-#define PWM_TOP 39999    // Period of the PWM signal for the servo (20ms)
-#define SERVO_MIN 999    // for 0.5 ms
-#define SERVO_MAX 4999   // for 2.5 ms
+#define SERVO_MAX_PULSE 2500  // in microseconds (2.5 ms)
+#define SERVO_MIN_PULSE 500   // in microseconds (0.5 ms)
+#define SERVO_PWM_TOP 39999 // Period of the PWM signal for the servo (20ms)
+#define SERVO_MIN 999 //for 0.5 ms
+#define SERVO_MAX 4999 //for 2.5 ms
 #define SERVO_PIN PINB1
 
-#define TRIG_PIN PINB5   // PB5 for trigger pin
-#define ECHO_PIN PINB4   // PB4 for echo pin
-
-#define WHITE 350
-#define BLACK 750
-#define X 30
-#define Y 20
+#define WHITE 360
+#define BLACK 560
+#define WHITE_PLUS 65
+#define BLACK_PLUS 35
+#define X 15	//INNER LIMIT
+#define Y 30	//OUTER LIMIT
 
 int driveSpeedFull = 70;
 int driveSpeedTruning = 5;
 int turningSpeed = 100;
-int hardTurningSPeed = 220;
+int hardTurningSPeed = 255;
 
-int white_limit = WHITE + 30;
-int black_limit = BLACK - 30;
+int white_limit = WHITE + WHITE_PLUS;
+int black_limit = BLACK - BLACK_PLUS;
 
-int whiteOuterLimit = WHITE + 30 - Y;
-int whiteInnerLimit = WHITE + 30 + X;
-int blackOuterLimit = BLACK - 30 + Y;
-int blackInnerLimit = BLACK - 30 - X;
+int whiteOuterLimit = WHITE + WHITE_PLUS - Y;
+int whiteInnerLimit = WHITE + WHITE_PLUS + X;
+int blackOuterLimit = BLACK - BLACK_PLUS + Y;
+int blackInnerLimit = BLACK - BLACK_PLUS - X;
 
 char receivedMessage = '\0';
 

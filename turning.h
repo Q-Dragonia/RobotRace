@@ -12,16 +12,21 @@
 #include "movement.h"
 
 void move(int averageValue){
+	
 	if(averageValue < whiteOuterLimit){
 		turnHardRight();
+	}else if(averageValue < white_limit){
+		turnRighty();
 	}else if(averageValue < whiteInnerLimit){
 		turnRight();
+	}else if(averageValue > blackOuterLimit){
+		turnHardLeft();
+	}else if(averageValue > black_limit){
+		turnLefty();
 	}else if(averageValue > blackInnerLimit){
 		turnLeft();
-	}else if(averageValue > blackOuterLimit){
-		turnHardRight();
 	}else{Forward();}
-}
+ }
 
 void Forward(){
 	_delay_ms(10);
@@ -37,6 +42,13 @@ void turnRight(){
 	_delay_ms(10);
 }
 
+void turnRighty(){
+	_delay_ms(10);
+	setMotorASpeed(180); // RIGHT
+	setMotorBSpeed(30); // LEFT
+	_delay_ms(10);
+}
+
 void turnHardRight(){
 	_delay_ms(10);
 	setMotorASpeed(hardTurningSPeed); // RIGHT
@@ -46,8 +58,15 @@ void turnHardRight(){
 
 void turnLeft(){
 	_delay_ms(10);
-	setMotorASpeed(driveSpeedTruning); // RIGHT
-	setMotorBSpeed(hardTurningSPeed); // LEFT
+	setMotorASpeed(driveSpeedFull); // RIGHT
+	setMotorBSpeed(turningSpeed); // LEFT
+	_delay_ms(10);
+}
+
+void turnLefty(){
+	_delay_ms(10);
+	setMotorASpeed(30); // RIGHT
+	setMotorBSpeed(180); // LEFT
 	_delay_ms(10);
 }
 

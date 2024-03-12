@@ -28,9 +28,14 @@ void init_USART(unsigned int ubrr){
 	UCSR0C = (3 << UCSZ00);
 }
 
-void transferMessage(unsigned char data){
-	while (!(UCSR0A & (1<<UDRE0)));
-	UDR0 = data;
+void transferMessage(int data) {
+	char buffer[20]; // Assuming a max of 20 characters for the number
+	snprintf(buffer, sizeof(buffer), "%d\n", data);
+	
+	for (int i = 0; buffer[i] != '\0'; i++) {
+		while (!(UCSR0A & (1 << UDRE0)));
+		UDR0 = buffer[i];
+	}
 }
 
 char receiveMessage(){
