@@ -9,7 +9,7 @@
 #ifndef COLLISION_H_
 #define COLLISION_H_
 
-#include "definitions.h"
+#include "servo.h"
 
 void ultrasonic_init() {
 	// Set trigger pin as output and echo pin as input for ultrasonic sensor
@@ -34,7 +34,54 @@ int measure_distance() {
 
 	return distance;
 }
+int collision(int16_t i){
+	
+	for (i = 45; i <= 135; i++) {
+		servo_set_angle(i, 180);
+		_delay_ms(100);
+		
 
+		// Measure distance
+		int distance = measure_distance();
+		
+		// Convert distance to string
+		char arr[20];
+		snprintf(arr, sizeof(arr), "%d \n", distance);
+
+		// Transmit distance over UART
+		for (int i = 0; arr[i] != '\0'; i++) {
+			USART_Transmit(arr[i]);
+		}
+		if(distance<45){
+			return 1;
+		}
+		// Delay to control the update rate
+		_delay_ms(100);
+	}
+	for (i = 135; i >= 45; i--) {
+		servo_set_angle(i, 180);
+		_delay_ms(100);
+		
+
+		// Measure distance
+		int distance = measure_distance();
+		
+		// Convert distance to string
+		char arr[20];
+		snprintf(arr, sizeof(arr), "%d \n", distance);
+
+		// Transmit distance over UART
+		for (int i = 0; arr[i] != '\0'; i++) {
+			USART_Transmit(arr[i]);
+		}
+
+		// Delay to control the update rate
+		_delay_ms(100);
+		if(distance<45){
+			return 1;
+		}
+	}
+}
 
 
 #endif /* COLLISION_H_ */

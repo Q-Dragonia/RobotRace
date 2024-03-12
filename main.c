@@ -13,6 +13,8 @@
 #include "adc.h"
 #include "usart.h"
 #include "turning.h"
+#include "servo.h"
+#include "collision.h"
 
 int main(void)
 {
@@ -20,7 +22,9 @@ int main(void)
 	init_ADC();
 	init_USART(MYUBRR);
  	init_driving_PWM();
-	
+	ultrasonic_init();
+	pwm_init();
+	int16_t i = 0;
 	char var;
 	
 	setMotorADirection(1);
@@ -44,7 +48,9 @@ int main(void)
 			
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
 			
+			int a = collision(i);
 			move(averageValue);
+			a=0;
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
 		}
