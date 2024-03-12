@@ -9,14 +9,19 @@
 #ifndef COLLISION_H_
 #define COLLISION_H_
 
-#include "definitions.h"
+#include "servo.h"
+#include "usart.h"
 
 void ultrasonic_init() {
 	// Set trigger pin as output and echo pin as input for ultrasonic sensor
 	DDRB |= (1 << TRIG_PIN); // Trigger pin as output
 	DDRB &= ~(1 << ECHO_PIN); // Echo pin as input
 }
-
+void timer1_init(){
+	TCCR1A = 0;
+	TCCR1B |= (0b010<<CS10);
+	
+}
 int measure_distance() {
 	// Send a 10us pulse to the ultrasonic sensor
 	PORTB |= (1 << TRIG_PIN);
@@ -30,7 +35,7 @@ int measure_distance() {
 	int time = TCNT1/2;
 
 	// Calculate distance in cm
-	int distance = (time / 29);
+	int distance = (int)(time / 29);
 
 	return distance;
 }

@@ -24,11 +24,13 @@
 #define B_DIRECTION_PIN PB3 // Left motor direction pin
 #define B_SPEED_PIN PD5     // Left motor speed pin
 
-#define SERVO_MAX_PULSE 2500  // in microseconds (2.5 ms)
-#define SERVO_MIN_PULSE 500   // in microseconds (0.5 ms)
-#define SERVO_PWM_TOP 39999 // Period of the PWM signal for the servo (20ms)
-#define SERVO_MIN 999 //for 0.5 ms
-#define SERVO_MAX 4999 //for 2.5 ms
+
+#define TRIG_PIN PINB5   // PB5 for trigger pin
+#define ECHO_PIN PINB4   // PB4 for echo pin
+
+#define PWM_TOP 39999    // Period of the PWM signal for the servo (20ms)
+#define SERVO_MIN 999    // for 0.5 ms
+#define SERVO_MAX 4999   // for 2.5 ms
 #define SERVO_PIN PINB1
 
 #define WHITE 360
