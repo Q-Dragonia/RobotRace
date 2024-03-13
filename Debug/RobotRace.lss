@@ -3,31 +3,31 @@ RobotRace.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000001a  00800100  0000048a  0000051e  2**0
+  0 .data         0000001a  00800100  00000490  00000524  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000048a  00000000  00000000  00000094  2**1
+  1 .text         00000490  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  0080011a  0080011a  00000538  2**0
+  2 .bss          00000001  0080011a  0080011a  0000053e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000538  2**0
+  3 .comment      00000030  00000000  00000000  0000053e  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000568  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000570  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000e8  00000000  00000000  000005a8  2**0
+  5 .debug_aranges 000000e8  00000000  00000000  000005b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000110c  00000000  00000000  00000690  2**0
+  6 .debug_info   00001120  00000000  00000000  00000698  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000087d  00000000  00000000  0000179c  2**0
+  7 .debug_abbrev 0000087d  00000000  00000000  000017b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000007f9  00000000  00000000  00002019  2**0
+  8 .debug_line   000007f3  00000000  00000000  00002035  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000200  00000000  00000000  00002814  2**2
+  9 .debug_frame  00000200  00000000  00000000  00002828  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000068e  00000000  00000000  00002a14  2**0
+ 10 .debug_str    00000682  00000000  00000000  00002a28  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000521  00000000  00000000  000030a2  2**0
+ 11 .debug_loc    00000521  00000000  00000000  000030aa  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000d8  00000000  00000000  000035c3  2**0
+ 12 .debug_ranges 000000d8  00000000  00000000  000035cb  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -72,7 +72,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	ea e8       	ldi	r30, 0x8A	; 138
+  7a:	e0 e9       	ldi	r30, 0x90	; 144
   7c:	f4 e0       	ldi	r31, 0x04	; 4
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -95,7 +95,7 @@ Disassembly of section .text:
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 8b 01 	call	0x316	; 0x316 <main>
-  9e:	0c 94 43 02 	jmp	0x486	; 0x486 <_exit>
+  9e:	0c 94 46 02 	jmp	0x48c	; 0x48c <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -428,7 +428,7 @@ int measure_distance() {
 	int distance = (int)(time / 29);
  30a:	6d e1       	ldi	r22, 0x1D	; 29
  30c:	70 e0       	ldi	r23, 0x00	; 0
- 30e:	0e 94 1b 02 	call	0x436	; 0x436 <__divmodhi4>
+ 30e:	0e 94 1e 02 	call	0x43c	; 0x43c <__divmodhi4>
  312:	cb 01       	movw	r24, r22
 
 	return distance;
@@ -483,198 +483,201 @@ int main(void)
  350:	93 30       	cpi	r25, 0x03	; 3
  352:	10 f4       	brcc	.+4      	; 0x358 <main+0x42>
  354:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
-		setMotorASpeed(80);
- 358:	80 e5       	ldi	r24, 0x50	; 80
+		setMotorASpeed(255);
+ 358:	8f ef       	ldi	r24, 0xFF	; 255
  35a:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+		setMotorBSpeed(255);
+ 35e:	8f ef       	ldi	r24, 0xFF	; 255
+ 360:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
 		
 		while(receivedMessage == 'A'){
- 35e:	47 c0       	rjmp	.+142    	; 0x3ee <main+0xd8>
+ 364:	47 c0       	rjmp	.+142    	; 0x3f4 <main+0xde>
 			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
- 360:	80 e0       	ldi	r24, 0x00	; 0
- 362:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 366:	4e 97       	sbiw	r24, 0x1e	; 30
- 368:	6c 01       	movw	r12, r24
+ 366:	80 e0       	ldi	r24, 0x00	; 0
+ 368:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 36c:	4e 97       	sbiw	r24, 0x1e	; 30
+ 36e:	6c 01       	movw	r12, r24
 			int lineTrackingSensorLeft = (int)readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
- 36a:	85 e0       	ldi	r24, 0x05	; 5
- 36c:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 370:	ec 01       	movw	r28, r24
+ 370:	85 e0       	ldi	r24, 0x05	; 5
+ 372:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 376:	ec 01       	movw	r28, r24
 			int lineTrackingSensorMiddle = (int)readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
- 372:	82 e0       	ldi	r24, 0x02	; 2
- 374:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 378:	7c 01       	movw	r14, r24
+ 378:	82 e0       	ldi	r24, 0x02	; 2
+ 37a:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 37e:	7c 01       	movw	r14, r24
 			int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) - 30);
- 37a:	81 e0       	ldi	r24, 0x01	; 1
- 37c:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 380:	8c 01       	movw	r16, r24
- 382:	0e 51       	subi	r16, 0x1E	; 30
- 384:	11 09       	sbc	r17, r1
+ 380:	81 e0       	ldi	r24, 0x01	; 1
+ 382:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 386:	8c 01       	movw	r16, r24
+ 388:	0e 51       	subi	r16, 0x1E	; 30
+ 38a:	11 09       	sbc	r17, r1
 			int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL) - 20);
- 386:	83 e0       	ldi	r24, 0x03	; 3
- 388:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 38c:	44 97       	sbiw	r24, 0x14	; 20
+ 38c:	83 e0       	ldi	r24, 0x03	; 3
+ 38e:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 392:	44 97       	sbiw	r24, 0x14	; 20
 			
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
- 38e:	96 01       	movw	r18, r12
- 390:	2c 0f       	add	r18, r28
- 392:	3d 1f       	adc	r19, r29
- 394:	e7 01       	movw	r28, r14
- 396:	c2 0f       	add	r28, r18
- 398:	d3 1f       	adc	r29, r19
- 39a:	c0 0f       	add	r28, r16
- 39c:	d1 1f       	adc	r29, r17
- 39e:	8c 0f       	add	r24, r28
- 3a0:	9d 1f       	adc	r25, r29
- 3a2:	65 e0       	ldi	r22, 0x05	; 5
- 3a4:	70 e0       	ldi	r23, 0x00	; 0
- 3a6:	0e 94 1b 02 	call	0x436	; 0x436 <__divmodhi4>
- 3aa:	8b 01       	movw	r16, r22
+ 394:	96 01       	movw	r18, r12
+ 396:	2c 0f       	add	r18, r28
+ 398:	3d 1f       	adc	r19, r29
+ 39a:	e7 01       	movw	r28, r14
+ 39c:	c2 0f       	add	r28, r18
+ 39e:	d3 1f       	adc	r29, r19
+ 3a0:	c0 0f       	add	r28, r16
+ 3a2:	d1 1f       	adc	r29, r17
+ 3a4:	8c 0f       	add	r24, r28
+ 3a6:	9d 1f       	adc	r25, r29
+ 3a8:	65 e0       	ldi	r22, 0x05	; 5
+ 3aa:	70 e0       	ldi	r23, 0x00	; 0
+ 3ac:	0e 94 1e 02 	call	0x43c	; 0x43c <__divmodhi4>
+ 3b0:	8b 01       	movw	r16, r22
 			
 			distance = measure_distance();
- 3ac:	0e 94 6d 01 	call	0x2da	; 0x2da <measure_distance>
- 3b0:	ec 01       	movw	r28, r24
+ 3b2:	0e 94 6d 01 	call	0x2da	; 0x2da <measure_distance>
+ 3b6:	ec 01       	movw	r28, r24
 			//transferMessage(averageValue);
 			custom_delay_ms(10);
- 3b2:	8a e0       	ldi	r24, 0x0A	; 10
- 3b4:	90 e0       	ldi	r25, 0x00	; 0
- 3b6:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
+ 3b8:	8a e0       	ldi	r24, 0x0A	; 10
+ 3ba:	90 e0       	ldi	r25, 0x00	; 0
+ 3bc:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
 			if(distance < 60){
- 3ba:	ec 97       	sbiw	r28, 0x3c	; 60
- 3bc:	6c f4       	brge	.+26     	; 0x3d8 <main+0xc2>
+ 3c0:	ec 97       	sbiw	r28, 0x3c	; 60
+ 3c2:	6c f4       	brge	.+26     	; 0x3de <main+0xc8>
 				setMotorBSpeed(0);
- 3be:	80 e0       	ldi	r24, 0x00	; 0
- 3c0:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
-				setMotorASpeed(0);
  3c4:	80 e0       	ldi	r24, 0x00	; 0
- 3c6:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 3c6:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+				setMotorASpeed(0);
+ 3ca:	80 e0       	ldi	r24, 0x00	; 0
+ 3cc:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
 				distance = measure_distance();
- 3ca:	0e 94 6d 01 	call	0x2da	; 0x2da <measure_distance>
+ 3d0:	0e 94 6d 01 	call	0x2da	; 0x2da <measure_distance>
 				custom_delay_ms(10);
- 3ce:	8a e0       	ldi	r24, 0x0A	; 10
- 3d0:	90 e0       	ldi	r25, 0x00	; 0
- 3d2:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
- 3d6:	03 c0       	rjmp	.+6      	; 0x3de <main+0xc8>
+ 3d4:	8a e0       	ldi	r24, 0x0A	; 10
+ 3d6:	90 e0       	ldi	r25, 0x00	; 0
+ 3d8:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
+ 3dc:	03 c0       	rjmp	.+6      	; 0x3e4 <main+0xce>
 			}else{
 				move(averageValue);
- 3d8:	c8 01       	movw	r24, r16
- 3da:	0e 94 1b 01 	call	0x236	; 0x236 <move>
+ 3de:	c8 01       	movw	r24, r16
+ 3e0:	0e 94 1b 01 	call	0x236	; 0x236 <move>
 		}
 			var = receiveMessage();
- 3de:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
+ 3e4:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
- 3e2:	9e eb       	ldi	r25, 0xBE	; 190
- 3e4:	98 0f       	add	r25, r24
- 3e6:	92 30       	cpi	r25, 0x02	; 2
- 3e8:	10 f4       	brcc	.+4      	; 0x3ee <main+0xd8>
- 3ea:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
-    {
+ 3e8:	9e eb       	ldi	r25, 0xBE	; 190
+ 3ea:	98 0f       	add	r25, r24
+ 3ec:	92 30       	cpi	r25, 0x02	; 2
+ 3ee:	10 f4       	brcc	.+4      	; 0x3f4 <main+0xde>
+ 3f0:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
 		var = receiveMessage();
 		if(var == 'A' || var == 'B' || var == 'C'){receivedMessage = var;}
-		setMotorASpeed(80);
+		setMotorASpeed(255);
+		setMotorBSpeed(255);
 		
 		while(receivedMessage == 'A'){
- 3ee:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
- 3f2:	81 34       	cpi	r24, 0x41	; 65
- 3f4:	09 f4       	brne	.+2      	; 0x3f8 <main+0xe2>
- 3f6:	b4 cf       	rjmp	.-152    	; 0x360 <main+0x4a>
+ 3f4:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
+ 3f8:	81 34       	cpi	r24, 0x41	; 65
+ 3fa:	09 f4       	brne	.+2      	; 0x3fe <main+0xe8>
+ 3fc:	b4 cf       	rjmp	.-152    	; 0x366 <main+0x50>
 				move(averageValue);
 		}
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
 		}
 		setMotorASpeed(0);
- 3f8:	80 e0       	ldi	r24, 0x00	; 0
- 3fa:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
-		setMotorBSpeed(0);
  3fe:	80 e0       	ldi	r24, 0x00	; 0
- 400:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 400:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+		setMotorBSpeed(0);
+ 404:	80 e0       	ldi	r24, 0x00	; 0
+ 406:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
 		if(receivedMessage == 'B'){
- 404:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
- 408:	82 34       	cpi	r24, 0x42	; 66
- 40a:	81 f4       	brne	.+32     	; 0x42c <__EEPROM_REGION_LENGTH__+0x2c>
+ 40a:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
+ 40e:	82 34       	cpi	r24, 0x42	; 66
+ 410:	81 f4       	brne	.+32     	; 0x432 <__EEPROM_REGION_LENGTH__+0x32>
 			custom_delay_ms(5000);
- 40c:	88 e8       	ldi	r24, 0x88	; 136
- 40e:	93 e1       	ldi	r25, 0x13	; 19
- 410:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
+ 412:	88 e8       	ldi	r24, 0x88	; 136
+ 414:	93 e1       	ldi	r25, 0x13	; 19
+ 416:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
 			receivedMessage = 'A';
- 414:	81 e4       	ldi	r24, 0x41	; 65
- 416:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
- 41a:	08 c0       	rjmp	.+16     	; 0x42c <__EEPROM_REGION_LENGTH__+0x2c>
+ 41a:	81 e4       	ldi	r24, 0x41	; 65
+ 41c:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
+ 420:	08 c0       	rjmp	.+16     	; 0x432 <__EEPROM_REGION_LENGTH__+0x32>
 		}
 		while(receivedMessage == 'C'){
 			var = receiveMessage();
- 41c:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
+ 422:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
 			if(var == 'A' || var == 'B'){receivedMessage =var;}
- 420:	9f eb       	ldi	r25, 0xBF	; 191
- 422:	98 0f       	add	r25, r24
- 424:	92 30       	cpi	r25, 0x02	; 2
- 426:	10 f4       	brcc	.+4      	; 0x42c <__EEPROM_REGION_LENGTH__+0x2c>
- 428:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
+ 426:	9f eb       	ldi	r25, 0xBF	; 191
+ 428:	98 0f       	add	r25, r24
+ 42a:	92 30       	cpi	r25, 0x02	; 2
+ 42c:	10 f4       	brcc	.+4      	; 0x432 <__EEPROM_REGION_LENGTH__+0x32>
+ 42e:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
 		setMotorBSpeed(0);
 		if(receivedMessage == 'B'){
 			custom_delay_ms(5000);
 			receivedMessage = 'A';
 		}
 		while(receivedMessage == 'C'){
- 42c:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
- 430:	83 34       	cpi	r24, 0x43	; 67
- 432:	a1 f3       	breq	.-24     	; 0x41c <__EEPROM_REGION_LENGTH__+0x1c>
- 434:	89 cf       	rjmp	.-238    	; 0x348 <main+0x32>
+ 432:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
+ 436:	83 34       	cpi	r24, 0x43	; 67
+ 438:	a1 f3       	breq	.-24     	; 0x422 <__EEPROM_REGION_LENGTH__+0x22>
+ 43a:	86 cf       	rjmp	.-244    	; 0x348 <main+0x32>
 
-00000436 <__divmodhi4>:
- 436:	97 fb       	bst	r25, 7
- 438:	07 2e       	mov	r0, r23
- 43a:	16 f4       	brtc	.+4      	; 0x440 <__divmodhi4+0xa>
- 43c:	00 94       	com	r0
- 43e:	07 d0       	rcall	.+14     	; 0x44e <__divmodhi4_neg1>
- 440:	77 fd       	sbrc	r23, 7
- 442:	09 d0       	rcall	.+18     	; 0x456 <__divmodhi4_neg2>
- 444:	0e 94 2f 02 	call	0x45e	; 0x45e <__udivmodhi4>
- 448:	07 fc       	sbrc	r0, 7
- 44a:	05 d0       	rcall	.+10     	; 0x456 <__divmodhi4_neg2>
- 44c:	3e f4       	brtc	.+14     	; 0x45c <__divmodhi4_exit>
+0000043c <__divmodhi4>:
+ 43c:	97 fb       	bst	r25, 7
+ 43e:	07 2e       	mov	r0, r23
+ 440:	16 f4       	brtc	.+4      	; 0x446 <__divmodhi4+0xa>
+ 442:	00 94       	com	r0
+ 444:	07 d0       	rcall	.+14     	; 0x454 <__divmodhi4_neg1>
+ 446:	77 fd       	sbrc	r23, 7
+ 448:	09 d0       	rcall	.+18     	; 0x45c <__divmodhi4_neg2>
+ 44a:	0e 94 32 02 	call	0x464	; 0x464 <__udivmodhi4>
+ 44e:	07 fc       	sbrc	r0, 7
+ 450:	05 d0       	rcall	.+10     	; 0x45c <__divmodhi4_neg2>
+ 452:	3e f4       	brtc	.+14     	; 0x462 <__divmodhi4_exit>
 
-0000044e <__divmodhi4_neg1>:
- 44e:	90 95       	com	r25
- 450:	81 95       	neg	r24
- 452:	9f 4f       	sbci	r25, 0xFF	; 255
- 454:	08 95       	ret
+00000454 <__divmodhi4_neg1>:
+ 454:	90 95       	com	r25
+ 456:	81 95       	neg	r24
+ 458:	9f 4f       	sbci	r25, 0xFF	; 255
+ 45a:	08 95       	ret
 
-00000456 <__divmodhi4_neg2>:
- 456:	70 95       	com	r23
- 458:	61 95       	neg	r22
- 45a:	7f 4f       	sbci	r23, 0xFF	; 255
+0000045c <__divmodhi4_neg2>:
+ 45c:	70 95       	com	r23
+ 45e:	61 95       	neg	r22
+ 460:	7f 4f       	sbci	r23, 0xFF	; 255
 
-0000045c <__divmodhi4_exit>:
- 45c:	08 95       	ret
+00000462 <__divmodhi4_exit>:
+ 462:	08 95       	ret
 
-0000045e <__udivmodhi4>:
- 45e:	aa 1b       	sub	r26, r26
- 460:	bb 1b       	sub	r27, r27
- 462:	51 e1       	ldi	r21, 0x11	; 17
- 464:	07 c0       	rjmp	.+14     	; 0x474 <__udivmodhi4_ep>
+00000464 <__udivmodhi4>:
+ 464:	aa 1b       	sub	r26, r26
+ 466:	bb 1b       	sub	r27, r27
+ 468:	51 e1       	ldi	r21, 0x11	; 17
+ 46a:	07 c0       	rjmp	.+14     	; 0x47a <__udivmodhi4_ep>
 
-00000466 <__udivmodhi4_loop>:
- 466:	aa 1f       	adc	r26, r26
- 468:	bb 1f       	adc	r27, r27
- 46a:	a6 17       	cp	r26, r22
- 46c:	b7 07       	cpc	r27, r23
- 46e:	10 f0       	brcs	.+4      	; 0x474 <__udivmodhi4_ep>
- 470:	a6 1b       	sub	r26, r22
- 472:	b7 0b       	sbc	r27, r23
+0000046c <__udivmodhi4_loop>:
+ 46c:	aa 1f       	adc	r26, r26
+ 46e:	bb 1f       	adc	r27, r27
+ 470:	a6 17       	cp	r26, r22
+ 472:	b7 07       	cpc	r27, r23
+ 474:	10 f0       	brcs	.+4      	; 0x47a <__udivmodhi4_ep>
+ 476:	a6 1b       	sub	r26, r22
+ 478:	b7 0b       	sbc	r27, r23
 
-00000474 <__udivmodhi4_ep>:
- 474:	88 1f       	adc	r24, r24
- 476:	99 1f       	adc	r25, r25
- 478:	5a 95       	dec	r21
- 47a:	a9 f7       	brne	.-22     	; 0x466 <__udivmodhi4_loop>
- 47c:	80 95       	com	r24
- 47e:	90 95       	com	r25
- 480:	bc 01       	movw	r22, r24
- 482:	cd 01       	movw	r24, r26
- 484:	08 95       	ret
+0000047a <__udivmodhi4_ep>:
+ 47a:	88 1f       	adc	r24, r24
+ 47c:	99 1f       	adc	r25, r25
+ 47e:	5a 95       	dec	r21
+ 480:	a9 f7       	brne	.-22     	; 0x46c <__udivmodhi4_loop>
+ 482:	80 95       	com	r24
+ 484:	90 95       	com	r25
+ 486:	bc 01       	movw	r22, r24
+ 488:	cd 01       	movw	r24, r26
+ 48a:	08 95       	ret
 
-00000486 <_exit>:
- 486:	f8 94       	cli
+0000048c <_exit>:
+ 48c:	f8 94       	cli
 
-00000488 <__stop_program>:
- 488:	ff cf       	rjmp	.-2      	; 0x488 <__stop_program>
+0000048e <__stop_program>:
+ 48e:	ff cf       	rjmp	.-2      	; 0x48e <__stop_program>
