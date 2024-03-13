@@ -50,7 +50,7 @@ int main(void)
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
 			
 			distance = measure_distance();
-			transferMessage(distance);
+			//transferMessage(averageValue);
 			custom_delay_ms(10);
 			if(distance < 60){
 				setMotorBSpeed(0);
@@ -58,7 +58,7 @@ int main(void)
 				distance = measure_distance();
 				custom_delay_ms(10);
 			}else{
-			move(averageValue);
+				move(averageValue);
 		}
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}

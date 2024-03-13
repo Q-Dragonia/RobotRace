@@ -33,17 +33,19 @@
 #define SERVO_MAX 4999   // for 2.5 ms
 #define SERVO_PIN PINB1
 
-#define WHITE 360
-#define BLACK 560
+#define WHITE 550
+#define BLACK 750
 #define WHITE_PLUS 65
-#define BLACK_PLUS 35
+#define BLACK_PLUS 50
 #define X 15	//INNER LIMIT
-#define Y 30	//OUTER LIMIT
+#define Y 15	//OUTER LIMIT
 
-int driveSpeedFull = 70;
-int driveSpeedTruning = 5;
-int turningSpeed = 100;
-int hardTurningSPeed = 255;
+int driveSpeedFull = 45;
+int driveSpeedTruning = 10;
+int turningSpeed = 120;
+int hardTurningSPeed = 200;
+int Turn = 150;
+int Drive = 25;
 
 int white_limit = WHITE + WHITE_PLUS;
 int black_limit = BLACK - BLACK_PLUS;

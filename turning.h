@@ -30,8 +30,8 @@ void move(int averageValue){
 
 void Forward(){
 	_delay_ms(10);
-	setMotorASpeed(driveSpeedFull); // RIGHT
-	setMotorBSpeed(driveSpeedFull); // LEFT
+	setMotorASpeed(driveSpeedFull + 20); // RIGHT
+	setMotorBSpeed(driveSpeedFull + 20); // LEFT
 	_delay_ms(10);
 }
 
@@ -44,8 +44,8 @@ void turnRight(){
 
 void turnRighty(){
 	_delay_ms(10);
-	setMotorASpeed(180); // RIGHT
-	setMotorBSpeed(30); // LEFT
+	setMotorASpeed(Turn); // RIGHT
+	setMotorBSpeed(Drive); // LEFT
 	_delay_ms(10);
 }
 
@@ -65,8 +65,8 @@ void turnLeft(){
 
 void turnLefty(){
 	_delay_ms(10);
-	setMotorASpeed(30); // RIGHT
-	setMotorBSpeed(180); // LEFT
+	setMotorASpeed(Drive); // RIGHT
+	setMotorBSpeed(Turn); // LEFT
 	_delay_ms(10);
 }
 
