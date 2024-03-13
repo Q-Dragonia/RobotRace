@@ -26,6 +26,7 @@ void move(int averageValue){
 	}else if(averageValue > blackInnerLimit){
 		turnLeft();
 	}else{Forward();}
+	custom_delay_ms(10);
  }
 
 void Forward(){

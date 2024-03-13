@@ -35,18 +35,18 @@
 
 #define WHITE 550
 #define BLACK 700
-#define WHITE_PLUS 55	//65
-#define BLACK_MINUS 40	//50
-#define X 15	//INNER LIMIT 15
-#define Y 30	//OUTER LIMIT 15
+#define WHITE_PLUS 65	//65
+#define BLACK_MINUS 50	//50
+#define X 10	//INNER LIMIT 15
+#define Y 40	//OUTER LIMIT 15
 
-int driveSpeedFull = 80;	//65
+int driveSpeedFull = 100;	//65
 int driveSpeedTruning = 10;	//10
-int turningSpeed = 80;	//120
+int turningSpeed = 100;	//120
 int hardTurningSPeed = 160;	//200
-int Turn = 800;	//150
-int Drive = 40;	//25
-int regularTruningSpeed = 70; //45
+int Turn = 100;	//150
+int Drive = 50;	//25
+int regularTruningSpeed = 90; //45
 
 int white_limit = WHITE + WHITE_PLUS;
 int black_limit = BLACK - BLACK_MINUS;

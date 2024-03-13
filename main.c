@@ -39,6 +39,7 @@ int main(void)
     {
 		var = receiveMessage();
 		if(var == 'A' || var == 'B' || var == 'C'){receivedMessage = var;}
+		setMotorASpeed(80);
 		
 		while(receivedMessage == 'A'){
 			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
