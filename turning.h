@@ -29,52 +29,38 @@ void move(int averageValue){
  }
 
 void Forward(){
-	_delay_ms(10);
-	setMotorASpeed(driveSpeedFull + 20); // RIGHT
-	setMotorBSpeed(driveSpeedFull + 20); // LEFT
-	_delay_ms(10);
+	setMotorASpeed(driveSpeedFull); // RIGHT
+	setMotorBSpeed(driveSpeedFull); // LEFT
 }
 
 void turnRight(){
-	_delay_ms(10);
 	setMotorASpeed(turningSpeed); // RIGHT
-	setMotorBSpeed(driveSpeedFull); // LEFT
-	_delay_ms(10);
+	setMotorBSpeed(regularTruningSpeed); // LEFT
 }
 
 void turnRighty(){
-	_delay_ms(10);
 	setMotorASpeed(Turn); // RIGHT
 	setMotorBSpeed(Drive); // LEFT
-	_delay_ms(10);
 }
 
 void turnHardRight(){
-	_delay_ms(10);
 	setMotorASpeed(hardTurningSPeed); // RIGHT
 	setMotorBSpeed(driveSpeedTruning); // LEFT
-	_delay_ms(10);
 }
 
 void turnLeft(){
-	_delay_ms(10);
-	setMotorASpeed(driveSpeedFull); // RIGHT
+	setMotorASpeed(regularTruningSpeed); // RIGHT
 	setMotorBSpeed(turningSpeed); // LEFT
-	_delay_ms(10);
 }
 
 void turnLefty(){
-	_delay_ms(10);
 	setMotorASpeed(Drive); // RIGHT
 	setMotorBSpeed(Turn); // LEFT
-	_delay_ms(10);
 }
 
 void turnHardLeft(){
-	_delay_ms(10);
 	setMotorASpeed(driveSpeedTruning); // RIGHT
 	setMotorBSpeed(hardTurningSPeed); // LEFT
-	_delay_ms(10);
 }
 
 #endif /* TURNING_H_ */

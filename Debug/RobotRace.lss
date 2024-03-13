@@ -3,31 +3,31 @@ RobotRace.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000018  00800100  0000052a  000005be  2**0
+  0 .data         0000001a  00800100  0000047e  00000512  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000052a  00000000  00000000  00000094  2**1
+  1 .text         0000047e  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  00800118  00800118  000005d6  2**0
+  2 .bss          00000001  0080011a  0080011a  0000052c  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000005d6  2**0
+  3 .comment      00000030  00000000  00000000  0000052c  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000608  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000055c  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000e8  00000000  00000000  00000648  2**0
+  5 .debug_aranges 000000e8  00000000  00000000  0000059c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001425  00000000  00000000  00000730  2**0
+  6 .debug_info   000010e0  00000000  00000000  00000684  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000008a1  00000000  00000000  00001b55  2**0
+  7 .debug_abbrev 00000872  00000000  00000000  00001764  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000087f  00000000  00000000  000023f6  2**0
+  8 .debug_line   000007e7  00000000  00000000  00001fd6  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000200  00000000  00000000  00002c78  2**2
+  9 .debug_frame  00000200  00000000  00000000  000027c0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000067f  00000000  00000000  00002e78  2**0
+ 10 .debug_str    0000068e  00000000  00000000  000029c0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000008f5  00000000  00000000  000034f7  2**0
+ 11 .debug_loc    00000521  00000000  00000000  0000304e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000d8  00000000  00000000  00003dec  2**0
+ 12 .debug_ranges 000000d8  00000000  00000000  0000356f  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -72,18 +72,18 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	ea e2       	ldi	r30, 0x2A	; 42
-  7c:	f5 e0       	ldi	r31, 0x05	; 5
+  7a:	ee e7       	ldi	r30, 0x7E	; 126
+  7c:	f4 e0       	ldi	r31, 0x04	; 4
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
   82:	0d 92       	st	X+, r0
-  84:	a8 31       	cpi	r26, 0x18	; 24
+  84:	aa 31       	cpi	r26, 0x1A	; 26
   86:	b1 07       	cpc	r27, r17
   88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
 
 0000008a <__do_clear_bss>:
   8a:	21 e0       	ldi	r18, 0x01	; 1
-  8c:	a8 e1       	ldi	r26, 0x18	; 24
+  8c:	aa e1       	ldi	r26, 0x1A	; 26
   8e:	b1 e0       	ldi	r27, 0x01	; 1
   90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
 
@@ -91,11 +91,11 @@ Disassembly of section .text:
   92:	1d 92       	st	X+, r1
 
 00000094 <.do_clear_bss_start>:
-  94:	a9 31       	cpi	r26, 0x19	; 25
+  94:	ab 31       	cpi	r26, 0x1B	; 27
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 dd 01 	call	0x3ba	; 0x3ba <main>
-  9e:	0c 94 93 02 	jmp	0x526	; 0x526 <_exit>
+  9a:	0e 94 87 01 	call	0x30e	; 0x30e <main>
+  9e:	0c 94 3d 02 	jmp	0x47a	; 0x47a <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -253,509 +253,423 @@ Disassembly of section .text:
 000001b0 <Forward>:
  1b0:	cf 93       	push	r28
  1b2:	df 93       	push	r29
- 1b4:	83 ec       	ldi	r24, 0xC3	; 195
- 1b6:	99 e0       	ldi	r25, 0x09	; 9
- 1b8:	01 97       	sbiw	r24, 0x01	; 1
- 1ba:	f1 f7       	brne	.-4      	; 0x1b8 <Forward+0x8>
- 1bc:	00 c0       	rjmp	.+0      	; 0x1be <Forward+0xe>
- 1be:	00 00       	nop
- 1c0:	c6 e1       	ldi	r28, 0x16	; 22
- 1c2:	d1 e0       	ldi	r29, 0x01	; 1
- 1c4:	88 81       	ld	r24, Y
- 1c6:	8c 5e       	subi	r24, 0xEC	; 236
- 1c8:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 1cc:	88 81       	ld	r24, Y
- 1ce:	8c 5e       	subi	r24, 0xEC	; 236
- 1d0:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 1d4:	83 ec       	ldi	r24, 0xC3	; 195
- 1d6:	99 e0       	ldi	r25, 0x09	; 9
- 1d8:	01 97       	sbiw	r24, 0x01	; 1
- 1da:	f1 f7       	brne	.-4      	; 0x1d8 <Forward+0x28>
- 1dc:	00 c0       	rjmp	.+0      	; 0x1de <Forward+0x2e>
- 1de:	00 00       	nop
- 1e0:	df 91       	pop	r29
- 1e2:	cf 91       	pop	r28
- 1e4:	08 95       	ret
+ 1b4:	c8 e1       	ldi	r28, 0x18	; 24
+ 1b6:	d1 e0       	ldi	r29, 0x01	; 1
+ 1b8:	88 81       	ld	r24, Y
+ 1ba:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 1be:	88 81       	ld	r24, Y
+ 1c0:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 1c4:	df 91       	pop	r29
+ 1c6:	cf 91       	pop	r28
+ 1c8:	08 95       	ret
 
-000001e6 <turnRight>:
- 1e6:	83 ec       	ldi	r24, 0xC3	; 195
- 1e8:	99 e0       	ldi	r25, 0x09	; 9
- 1ea:	01 97       	sbiw	r24, 0x01	; 1
- 1ec:	f1 f7       	brne	.-4      	; 0x1ea <turnRight+0x4>
- 1ee:	00 c0       	rjmp	.+0      	; 0x1f0 <turnRight+0xa>
- 1f0:	00 00       	nop
- 1f2:	80 91 12 01 	lds	r24, 0x0112	; 0x800112 <turningSpeed>
- 1f6:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 1fa:	80 91 16 01 	lds	r24, 0x0116	; 0x800116 <driveSpeedFull>
- 1fe:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 202:	83 ec       	ldi	r24, 0xC3	; 195
- 204:	99 e0       	ldi	r25, 0x09	; 9
- 206:	01 97       	sbiw	r24, 0x01	; 1
- 208:	f1 f7       	brne	.-4      	; 0x206 <turnRight+0x20>
- 20a:	00 c0       	rjmp	.+0      	; 0x20c <turnRight+0x26>
- 20c:	00 00       	nop
- 20e:	08 95       	ret
+000001ca <turnRight>:
+ 1ca:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <turningSpeed>
+ 1ce:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 1d2:	80 91 0c 01 	lds	r24, 0x010C	; 0x80010c <regularTruningSpeed>
+ 1d6:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 1da:	08 95       	ret
 
-00000210 <turnRighty>:
- 210:	83 ec       	ldi	r24, 0xC3	; 195
- 212:	99 e0       	ldi	r25, 0x09	; 9
- 214:	01 97       	sbiw	r24, 0x01	; 1
- 216:	f1 f7       	brne	.-4      	; 0x214 <turnRighty+0x4>
- 218:	00 c0       	rjmp	.+0      	; 0x21a <turnRighty+0xa>
- 21a:	00 00       	nop
- 21c:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <Turn>
- 220:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 224:	80 91 0c 01 	lds	r24, 0x010C	; 0x80010c <Drive>
- 228:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 22c:	83 ec       	ldi	r24, 0xC3	; 195
- 22e:	99 e0       	ldi	r25, 0x09	; 9
- 230:	01 97       	sbiw	r24, 0x01	; 1
- 232:	f1 f7       	brne	.-4      	; 0x230 <turnRighty+0x20>
- 234:	00 c0       	rjmp	.+0      	; 0x236 <turnRighty+0x26>
- 236:	00 00       	nop
- 238:	08 95       	ret
+000001dc <turnRighty>:
+ 1dc:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <Turn>
+ 1e0:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 1e4:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <Drive>
+ 1e8:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 1ec:	08 95       	ret
 
-0000023a <turnHardRight>:
- 23a:	83 ec       	ldi	r24, 0xC3	; 195
- 23c:	99 e0       	ldi	r25, 0x09	; 9
- 23e:	01 97       	sbiw	r24, 0x01	; 1
- 240:	f1 f7       	brne	.-4      	; 0x23e <turnHardRight+0x4>
- 242:	00 c0       	rjmp	.+0      	; 0x244 <turnHardRight+0xa>
- 244:	00 00       	nop
- 246:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <hardTurningSPeed>
- 24a:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 24e:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <driveSpeedTruning>
- 252:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 256:	83 ec       	ldi	r24, 0xC3	; 195
- 258:	99 e0       	ldi	r25, 0x09	; 9
- 25a:	01 97       	sbiw	r24, 0x01	; 1
- 25c:	f1 f7       	brne	.-4      	; 0x25a <turnHardRight+0x20>
- 25e:	00 c0       	rjmp	.+0      	; 0x260 <turnHardRight+0x26>
- 260:	00 00       	nop
- 262:	08 95       	ret
+000001ee <turnHardRight>:
+ 1ee:	80 91 12 01 	lds	r24, 0x0112	; 0x800112 <hardTurningSPeed>
+ 1f2:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 1f6:	80 91 16 01 	lds	r24, 0x0116	; 0x800116 <driveSpeedTruning>
+ 1fa:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 1fe:	08 95       	ret
 
-00000264 <turnLeft>:
- 264:	83 ec       	ldi	r24, 0xC3	; 195
- 266:	99 e0       	ldi	r25, 0x09	; 9
- 268:	01 97       	sbiw	r24, 0x01	; 1
- 26a:	f1 f7       	brne	.-4      	; 0x268 <turnLeft+0x4>
- 26c:	00 c0       	rjmp	.+0      	; 0x26e <turnLeft+0xa>
- 26e:	00 00       	nop
- 270:	80 91 16 01 	lds	r24, 0x0116	; 0x800116 <driveSpeedFull>
- 274:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 278:	80 91 12 01 	lds	r24, 0x0112	; 0x800112 <turningSpeed>
- 27c:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 280:	83 ec       	ldi	r24, 0xC3	; 195
- 282:	99 e0       	ldi	r25, 0x09	; 9
- 284:	01 97       	sbiw	r24, 0x01	; 1
- 286:	f1 f7       	brne	.-4      	; 0x284 <turnLeft+0x20>
- 288:	00 c0       	rjmp	.+0      	; 0x28a <turnLeft+0x26>
- 28a:	00 00       	nop
- 28c:	08 95       	ret
+00000200 <turnLeft>:
+ 200:	80 91 0c 01 	lds	r24, 0x010C	; 0x80010c <regularTruningSpeed>
+ 204:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 208:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <turningSpeed>
+ 20c:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 210:	08 95       	ret
 
-0000028e <turnLefty>:
- 28e:	83 ec       	ldi	r24, 0xC3	; 195
- 290:	99 e0       	ldi	r25, 0x09	; 9
- 292:	01 97       	sbiw	r24, 0x01	; 1
- 294:	f1 f7       	brne	.-4      	; 0x292 <turnLefty+0x4>
- 296:	00 c0       	rjmp	.+0      	; 0x298 <turnLefty+0xa>
- 298:	00 00       	nop
- 29a:	80 91 0c 01 	lds	r24, 0x010C	; 0x80010c <Drive>
- 29e:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 2a2:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <Turn>
- 2a6:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 2aa:	83 ec       	ldi	r24, 0xC3	; 195
- 2ac:	99 e0       	ldi	r25, 0x09	; 9
- 2ae:	01 97       	sbiw	r24, 0x01	; 1
- 2b0:	f1 f7       	brne	.-4      	; 0x2ae <turnLefty+0x20>
- 2b2:	00 c0       	rjmp	.+0      	; 0x2b4 <turnLefty+0x26>
- 2b4:	00 00       	nop
- 2b6:	08 95       	ret
+00000212 <turnLefty>:
+ 212:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <Drive>
+ 216:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 21a:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <Turn>
+ 21e:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 222:	08 95       	ret
 
-000002b8 <turnHardLeft>:
- 2b8:	83 ec       	ldi	r24, 0xC3	; 195
- 2ba:	99 e0       	ldi	r25, 0x09	; 9
- 2bc:	01 97       	sbiw	r24, 0x01	; 1
- 2be:	f1 f7       	brne	.-4      	; 0x2bc <turnHardLeft+0x4>
- 2c0:	00 c0       	rjmp	.+0      	; 0x2c2 <turnHardLeft+0xa>
- 2c2:	00 00       	nop
- 2c4:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <driveSpeedTruning>
- 2c8:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
- 2cc:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <hardTurningSPeed>
- 2d0:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
- 2d4:	83 ec       	ldi	r24, 0xC3	; 195
- 2d6:	99 e0       	ldi	r25, 0x09	; 9
- 2d8:	01 97       	sbiw	r24, 0x01	; 1
- 2da:	f1 f7       	brne	.-4      	; 0x2d8 <turnHardLeft+0x20>
- 2dc:	00 c0       	rjmp	.+0      	; 0x2de <turnHardLeft+0x26>
- 2de:	00 00       	nop
- 2e0:	08 95       	ret
+00000224 <turnHardLeft>:
+ 224:	80 91 16 01 	lds	r24, 0x0116	; 0x800116 <driveSpeedTruning>
+ 228:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 22c:	80 91 12 01 	lds	r24, 0x0112	; 0x800112 <hardTurningSPeed>
+ 230:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 234:	08 95       	ret
 
-000002e2 <move>:
- 2e2:	20 91 06 01 	lds	r18, 0x0106	; 0x800106 <whiteOuterLimit>
- 2e6:	30 91 07 01 	lds	r19, 0x0107	; 0x800107 <whiteOuterLimit+0x1>
- 2ea:	82 17       	cp	r24, r18
- 2ec:	93 07       	cpc	r25, r19
- 2ee:	1c f4       	brge	.+6      	; 0x2f6 <move+0x14>
- 2f0:	0e 94 1d 01 	call	0x23a	; 0x23a <turnHardRight>
- 2f4:	08 95       	ret
- 2f6:	20 91 0a 01 	lds	r18, 0x010A	; 0x80010a <white_limit>
- 2fa:	30 91 0b 01 	lds	r19, 0x010B	; 0x80010b <white_limit+0x1>
- 2fe:	82 17       	cp	r24, r18
- 300:	93 07       	cpc	r25, r19
- 302:	1c f4       	brge	.+6      	; 0x30a <move+0x28>
- 304:	0e 94 08 01 	call	0x210	; 0x210 <turnRighty>
- 308:	08 95       	ret
- 30a:	20 91 04 01 	lds	r18, 0x0104	; 0x800104 <whiteInnerLimit>
- 30e:	30 91 05 01 	lds	r19, 0x0105	; 0x800105 <whiteInnerLimit+0x1>
- 312:	82 17       	cp	r24, r18
- 314:	93 07       	cpc	r25, r19
- 316:	1c f4       	brge	.+6      	; 0x31e <move+0x3c>
- 318:	0e 94 f3 00 	call	0x1e6	; 0x1e6 <turnRight>
- 31c:	08 95       	ret
- 31e:	20 91 02 01 	lds	r18, 0x0102	; 0x800102 <blackOuterLimit>
- 322:	30 91 03 01 	lds	r19, 0x0103	; 0x800103 <blackOuterLimit+0x1>
- 326:	28 17       	cp	r18, r24
- 328:	39 07       	cpc	r19, r25
- 32a:	1c f4       	brge	.+6      	; 0x332 <move+0x50>
- 32c:	0e 94 5c 01 	call	0x2b8	; 0x2b8 <turnHardLeft>
- 330:	08 95       	ret
- 332:	20 91 08 01 	lds	r18, 0x0108	; 0x800108 <black_limit>
- 336:	30 91 09 01 	lds	r19, 0x0109	; 0x800109 <black_limit+0x1>
- 33a:	28 17       	cp	r18, r24
- 33c:	39 07       	cpc	r19, r25
- 33e:	1c f4       	brge	.+6      	; 0x346 <move+0x64>
- 340:	0e 94 47 01 	call	0x28e	; 0x28e <turnLefty>
- 344:	08 95       	ret
- 346:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
- 34a:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
- 34e:	28 17       	cp	r18, r24
- 350:	39 07       	cpc	r19, r25
- 352:	1c f4       	brge	.+6      	; 0x35a <move+0x78>
- 354:	0e 94 32 01 	call	0x264	; 0x264 <turnLeft>
- 358:	08 95       	ret
- 35a:	0e 94 d8 00 	call	0x1b0	; 0x1b0 <Forward>
- 35e:	08 95       	ret
+00000236 <move>:
+ 236:	20 91 06 01 	lds	r18, 0x0106	; 0x800106 <whiteOuterLimit>
+ 23a:	30 91 07 01 	lds	r19, 0x0107	; 0x800107 <whiteOuterLimit+0x1>
+ 23e:	82 17       	cp	r24, r18
+ 240:	93 07       	cpc	r25, r19
+ 242:	1c f4       	brge	.+6      	; 0x24a <move+0x14>
+ 244:	0e 94 f7 00 	call	0x1ee	; 0x1ee <turnHardRight>
+ 248:	08 95       	ret
+ 24a:	20 91 0a 01 	lds	r18, 0x010A	; 0x80010a <white_limit>
+ 24e:	30 91 0b 01 	lds	r19, 0x010B	; 0x80010b <white_limit+0x1>
+ 252:	82 17       	cp	r24, r18
+ 254:	93 07       	cpc	r25, r19
+ 256:	1c f4       	brge	.+6      	; 0x25e <move+0x28>
+ 258:	0e 94 ee 00 	call	0x1dc	; 0x1dc <turnRighty>
+ 25c:	08 95       	ret
+ 25e:	20 91 04 01 	lds	r18, 0x0104	; 0x800104 <whiteInnerLimit>
+ 262:	30 91 05 01 	lds	r19, 0x0105	; 0x800105 <whiteInnerLimit+0x1>
+ 266:	82 17       	cp	r24, r18
+ 268:	93 07       	cpc	r25, r19
+ 26a:	1c f4       	brge	.+6      	; 0x272 <move+0x3c>
+ 26c:	0e 94 e5 00 	call	0x1ca	; 0x1ca <turnRight>
+ 270:	08 95       	ret
+ 272:	20 91 02 01 	lds	r18, 0x0102	; 0x800102 <blackOuterLimit>
+ 276:	30 91 03 01 	lds	r19, 0x0103	; 0x800103 <blackOuterLimit+0x1>
+ 27a:	28 17       	cp	r18, r24
+ 27c:	39 07       	cpc	r19, r25
+ 27e:	1c f4       	brge	.+6      	; 0x286 <move+0x50>
+ 280:	0e 94 12 01 	call	0x224	; 0x224 <turnHardLeft>
+ 284:	08 95       	ret
+ 286:	20 91 08 01 	lds	r18, 0x0108	; 0x800108 <black_limit>
+ 28a:	30 91 09 01 	lds	r19, 0x0109	; 0x800109 <black_limit+0x1>
+ 28e:	28 17       	cp	r18, r24
+ 290:	39 07       	cpc	r19, r25
+ 292:	1c f4       	brge	.+6      	; 0x29a <move+0x64>
+ 294:	0e 94 09 01 	call	0x212	; 0x212 <turnLefty>
+ 298:	08 95       	ret
+ 29a:	20 91 00 01 	lds	r18, 0x0100	; 0x800100 <__DATA_REGION_ORIGIN__>
+ 29e:	30 91 01 01 	lds	r19, 0x0101	; 0x800101 <__DATA_REGION_ORIGIN__+0x1>
+ 2a2:	28 17       	cp	r18, r24
+ 2a4:	39 07       	cpc	r19, r25
+ 2a6:	1c f4       	brge	.+6      	; 0x2ae <move+0x78>
+ 2a8:	0e 94 00 01 	call	0x200	; 0x200 <turnLeft>
+ 2ac:	08 95       	ret
+ 2ae:	0e 94 d8 00 	call	0x1b0	; 0x1b0 <Forward>
+ 2b2:	08 95       	ret
 
-00000360 <ultrasonic_init>:
+000002b4 <ultrasonic_init>:
 #include "servo.h"
 #include "usart.h"
 
 void ultrasonic_init() {
 	// Set trigger pin as output and echo pin as input for ultrasonic sensor
 	DDRB |= (1 << TRIG_PIN); // Trigger pin as output
- 360:	84 b1       	in	r24, 0x04	; 4
- 362:	80 62       	ori	r24, 0x20	; 32
- 364:	84 b9       	out	0x04, r24	; 4
+ 2b4:	84 b1       	in	r24, 0x04	; 4
+ 2b6:	80 62       	ori	r24, 0x20	; 32
+ 2b8:	84 b9       	out	0x04, r24	; 4
 	DDRB &= ~(1 << ECHO_PIN); // Echo pin as input
- 366:	84 b1       	in	r24, 0x04	; 4
- 368:	8f 7e       	andi	r24, 0xEF	; 239
- 36a:	84 b9       	out	0x04, r24	; 4
- 36c:	08 95       	ret
+ 2ba:	84 b1       	in	r24, 0x04	; 4
+ 2bc:	8f 7e       	andi	r24, 0xEF	; 239
+ 2be:	84 b9       	out	0x04, r24	; 4
+ 2c0:	08 95       	ret
 
-0000036e <timer1_init>:
+000002c2 <timer1_init>:
 }
 void timer1_init(){
 	TCCR1A = 0;
- 36e:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
+ 2c2:	10 92 80 00 	sts	0x0080, r1	; 0x800080 <__TEXT_REGION_LENGTH__+0x7f8080>
 	TCCR1B |= (0b010<<CS10);
- 372:	e1 e8       	ldi	r30, 0x81	; 129
- 374:	f0 e0       	ldi	r31, 0x00	; 0
- 376:	80 81       	ld	r24, Z
- 378:	82 60       	ori	r24, 0x02	; 2
- 37a:	80 83       	st	Z, r24
- 37c:	08 95       	ret
+ 2c6:	e1 e8       	ldi	r30, 0x81	; 129
+ 2c8:	f0 e0       	ldi	r31, 0x00	; 0
+ 2ca:	80 81       	ld	r24, Z
+ 2cc:	82 60       	ori	r24, 0x02	; 2
+ 2ce:	80 83       	st	Z, r24
+ 2d0:	08 95       	ret
 
-0000037e <measure_distance>:
+000002d2 <measure_distance>:
 	
 }
 int measure_distance() {
 	// Send a 10us pulse to the ultrasonic sensor
 	PORTB |= (1 << TRIG_PIN);
- 37e:	85 b1       	in	r24, 0x05	; 5
- 380:	80 62       	ori	r24, 0x20	; 32
- 382:	85 b9       	out	0x05, r24	; 5
+ 2d2:	85 b1       	in	r24, 0x05	; 5
+ 2d4:	80 62       	ori	r24, 0x20	; 32
+ 2d6:	85 b9       	out	0x05, r24	; 5
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 384:	83 e0       	ldi	r24, 0x03	; 3
- 386:	8a 95       	dec	r24
- 388:	f1 f7       	brne	.-4      	; 0x386 <measure_distance+0x8>
- 38a:	00 00       	nop
+ 2d8:	83 e0       	ldi	r24, 0x03	; 3
+ 2da:	8a 95       	dec	r24
+ 2dc:	f1 f7       	brne	.-4      	; 0x2da <measure_distance+0x8>
+ 2de:	00 00       	nop
 	_delay_us(10);
 	PORTB &= ~(1 << TRIG_PIN);
- 38c:	85 b1       	in	r24, 0x05	; 5
- 38e:	8f 7d       	andi	r24, 0xDF	; 223
- 390:	85 b9       	out	0x05, r24	; 5
+ 2e0:	85 b1       	in	r24, 0x05	; 5
+ 2e2:	8f 7d       	andi	r24, 0xDF	; 223
+ 2e4:	85 b9       	out	0x05, r24	; 5
 
 	// Measure pulse duration
 	while (!(PINB & (1 << ECHO_PIN))); // Wait for echo pin to go high
- 392:	1c 9b       	sbis	0x03, 4	; 3
- 394:	fe cf       	rjmp	.-4      	; 0x392 <measure_distance+0x14>
+ 2e6:	1c 9b       	sbis	0x03, 4	; 3
+ 2e8:	fe cf       	rjmp	.-4      	; 0x2e6 <measure_distance+0x14>
 	TCNT1 = 0; // Record start time
- 396:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
- 39a:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+ 2ea:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+ 2ee:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
 	while (PINB & (1 << ECHO_PIN)); // Wait for echo pin to go low
- 39e:	1c 99       	sbic	0x03, 4	; 3
- 3a0:	fe cf       	rjmp	.-4      	; 0x39e <measure_distance+0x20>
+ 2f2:	1c 99       	sbic	0x03, 4	; 3
+ 2f4:	fe cf       	rjmp	.-4      	; 0x2f2 <measure_distance+0x20>
 	int time = TCNT1/2;
- 3a2:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
- 3a6:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
- 3aa:	96 95       	lsr	r25
- 3ac:	87 95       	ror	r24
+ 2f6:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7f8084>
+ 2fa:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7f8085>
+ 2fe:	96 95       	lsr	r25
+ 300:	87 95       	ror	r24
 
 	// Calculate distance in cm
 	int distance = (int)(time / 29);
- 3ae:	6d e1       	ldi	r22, 0x1D	; 29
- 3b0:	70 e0       	ldi	r23, 0x00	; 0
- 3b2:	0e 94 6b 02 	call	0x4d6	; 0x4d6 <__divmodhi4>
- 3b6:	cb 01       	movw	r24, r22
+ 302:	6d e1       	ldi	r22, 0x1D	; 29
+ 304:	70 e0       	ldi	r23, 0x00	; 0
+ 306:	0e 94 15 02 	call	0x42a	; 0x42a <__divmodhi4>
+ 30a:	cb 01       	movw	r24, r22
 
 	return distance;
 }
- 3b8:	08 95       	ret
+ 30c:	08 95       	ret
 
-000003ba <main>:
+0000030e <main>:
 #include "collision.h"
 
 int main(void)
 {
     
 	init_ADC();
- 3ba:	0e 94 53 00 	call	0xa6	; 0xa6 <init_ADC>
+ 30e:	0e 94 53 00 	call	0xa6	; 0xa6 <init_ADC>
 	init_USART(MYUBRR);
- 3be:	87 e6       	ldi	r24, 0x67	; 103
- 3c0:	90 e0       	ldi	r25, 0x00	; 0
- 3c2:	0e 94 97 00 	call	0x12e	; 0x12e <init_USART>
+ 312:	87 e6       	ldi	r24, 0x67	; 103
+ 314:	90 e0       	ldi	r25, 0x00	; 0
+ 316:	0e 94 97 00 	call	0x12e	; 0x12e <init_USART>
  	init_driving_PWM();
- 3c6:	0e 94 ab 00 	call	0x156	; 0x156 <init_driving_PWM>
+ 31a:	0e 94 ab 00 	call	0x156	; 0x156 <init_driving_PWM>
 	ultrasonic_init();
- 3ca:	0e 94 b0 01 	call	0x360	; 0x360 <ultrasonic_init>
+ 31e:	0e 94 5a 01 	call	0x2b4	; 0x2b4 <ultrasonic_init>
 	timer1_init();
- 3ce:	0e 94 b7 01 	call	0x36e	; 0x36e <timer1_init>
+ 322:	0e 94 61 01 	call	0x2c2	; 0x2c2 <timer1_init>
 	int16_t i = 0;
 	char var;
 	int distance;
 	
 	setMotorADirection(1);
- 3d2:	81 e0       	ldi	r24, 0x01	; 1
- 3d4:	0e 94 c4 00 	call	0x188	; 0x188 <setMotorADirection>
+ 326:	81 e0       	ldi	r24, 0x01	; 1
+ 328:	0e 94 c4 00 	call	0x188	; 0x188 <setMotorADirection>
 	setMotorBDirection(1);
- 3d8:	81 e0       	ldi	r24, 0x01	; 1
- 3da:	0e 94 ce 00 	call	0x19c	; 0x19c <setMotorBDirection>
+ 32c:	81 e0       	ldi	r24, 0x01	; 1
+ 32e:	0e 94 ce 00 	call	0x19c	; 0x19c <setMotorBDirection>
 	setMotorASpeed(0);
- 3de:	80 e0       	ldi	r24, 0x00	; 0
- 3e0:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 332:	80 e0       	ldi	r24, 0x00	; 0
+ 334:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
 	setMotorBSpeed(0);
- 3e4:	80 e0       	ldi	r24, 0x00	; 0
- 3e6:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 338:	80 e0       	ldi	r24, 0x00	; 0
+ 33a:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
 	
 	sei();
- 3ea:	78 94       	sei
+ 33e:	78 94       	sei
 	
   while (1) 
     {
 		var = receiveMessage();
- 3ec:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
+ 340:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
 		if(var == 'A' || var == 'B' || var == 'C'){receivedMessage = var;}
- 3f0:	9f eb       	ldi	r25, 0xBF	; 191
- 3f2:	98 0f       	add	r25, r24
- 3f4:	93 30       	cpi	r25, 0x03	; 3
- 3f6:	08 f0       	brcs	.+2      	; 0x3fa <main+0x40>
- 3f8:	4a c0       	rjmp	.+148    	; 0x48e <__EEPROM_REGION_LENGTH__+0x8e>
- 3fa:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <__data_end>
- 3fe:	47 c0       	rjmp	.+142    	; 0x48e <__EEPROM_REGION_LENGTH__+0x8e>
+ 344:	9f eb       	ldi	r25, 0xBF	; 191
+ 346:	98 0f       	add	r25, r24
+ 348:	93 30       	cpi	r25, 0x03	; 3
+ 34a:	08 f0       	brcs	.+2      	; 0x34e <main+0x40>
+ 34c:	4a c0       	rjmp	.+148    	; 0x3e2 <main+0xd4>
+ 34e:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
+ 352:	47 c0       	rjmp	.+142    	; 0x3e2 <main+0xd4>
 		
 		while(receivedMessage == 'A'){
 			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
- 400:	80 e0       	ldi	r24, 0x00	; 0
- 402:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 406:	4e 97       	sbiw	r24, 0x1e	; 30
- 408:	6c 01       	movw	r12, r24
+ 354:	80 e0       	ldi	r24, 0x00	; 0
+ 356:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 35a:	4e 97       	sbiw	r24, 0x1e	; 30
+ 35c:	6c 01       	movw	r12, r24
 			int lineTrackingSensorLeft = (int)readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
- 40a:	85 e0       	ldi	r24, 0x05	; 5
- 40c:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 410:	ec 01       	movw	r28, r24
+ 35e:	85 e0       	ldi	r24, 0x05	; 5
+ 360:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 364:	ec 01       	movw	r28, r24
 			int lineTrackingSensorMiddle = (int)readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
- 412:	82 e0       	ldi	r24, 0x02	; 2
- 414:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 418:	7c 01       	movw	r14, r24
+ 366:	82 e0       	ldi	r24, 0x02	; 2
+ 368:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 36c:	7c 01       	movw	r14, r24
 			int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) - 30);
- 41a:	81 e0       	ldi	r24, 0x01	; 1
- 41c:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 420:	8c 01       	movw	r16, r24
- 422:	0e 51       	subi	r16, 0x1E	; 30
- 424:	11 09       	sbc	r17, r1
+ 36e:	81 e0       	ldi	r24, 0x01	; 1
+ 370:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 374:	8c 01       	movw	r16, r24
+ 376:	0e 51       	subi	r16, 0x1E	; 30
+ 378:	11 09       	sbc	r17, r1
 			int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL) - 20);
- 426:	83 e0       	ldi	r24, 0x03	; 3
- 428:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
- 42c:	44 97       	sbiw	r24, 0x14	; 20
+ 37a:	83 e0       	ldi	r24, 0x03	; 3
+ 37c:	0e 94 61 00 	call	0xc2	; 0xc2 <readADC>
+ 380:	44 97       	sbiw	r24, 0x14	; 20
 			
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
- 42e:	96 01       	movw	r18, r12
- 430:	2c 0f       	add	r18, r28
- 432:	3d 1f       	adc	r19, r29
- 434:	e7 01       	movw	r28, r14
- 436:	c2 0f       	add	r28, r18
- 438:	d3 1f       	adc	r29, r19
- 43a:	c0 0f       	add	r28, r16
- 43c:	d1 1f       	adc	r29, r17
- 43e:	8c 0f       	add	r24, r28
- 440:	9d 1f       	adc	r25, r29
- 442:	65 e0       	ldi	r22, 0x05	; 5
- 444:	70 e0       	ldi	r23, 0x00	; 0
- 446:	0e 94 6b 02 	call	0x4d6	; 0x4d6 <__divmodhi4>
- 44a:	8b 01       	movw	r16, r22
+ 382:	96 01       	movw	r18, r12
+ 384:	2c 0f       	add	r18, r28
+ 386:	3d 1f       	adc	r19, r29
+ 388:	e7 01       	movw	r28, r14
+ 38a:	c2 0f       	add	r28, r18
+ 38c:	d3 1f       	adc	r29, r19
+ 38e:	c0 0f       	add	r28, r16
+ 390:	d1 1f       	adc	r29, r17
+ 392:	8c 0f       	add	r24, r28
+ 394:	9d 1f       	adc	r25, r29
+ 396:	65 e0       	ldi	r22, 0x05	; 5
+ 398:	70 e0       	ldi	r23, 0x00	; 0
+ 39a:	0e 94 15 02 	call	0x42a	; 0x42a <__divmodhi4>
+ 39e:	8b 01       	movw	r16, r22
 			
 			distance = measure_distance();
- 44c:	0e 94 bf 01 	call	0x37e	; 0x37e <measure_distance>
- 450:	ec 01       	movw	r28, r24
+ 3a0:	0e 94 69 01 	call	0x2d2	; 0x2d2 <measure_distance>
+ 3a4:	ec 01       	movw	r28, r24
 			//transferMessage(averageValue);
 			custom_delay_ms(10);
- 452:	8a e0       	ldi	r24, 0x0A	; 10
- 454:	90 e0       	ldi	r25, 0x00	; 0
- 456:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
+ 3a6:	8a e0       	ldi	r24, 0x0A	; 10
+ 3a8:	90 e0       	ldi	r25, 0x00	; 0
+ 3aa:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
 			if(distance < 60){
- 45a:	ec 97       	sbiw	r28, 0x3c	; 60
- 45c:	6c f4       	brge	.+26     	; 0x478 <__EEPROM_REGION_LENGTH__+0x78>
+ 3ae:	ec 97       	sbiw	r28, 0x3c	; 60
+ 3b0:	6c f4       	brge	.+26     	; 0x3cc <main+0xbe>
 				setMotorBSpeed(0);
- 45e:	80 e0       	ldi	r24, 0x00	; 0
- 460:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 3b2:	80 e0       	ldi	r24, 0x00	; 0
+ 3b4:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
 				setMotorASpeed(0);
- 464:	80 e0       	ldi	r24, 0x00	; 0
- 466:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 3b8:	80 e0       	ldi	r24, 0x00	; 0
+ 3ba:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
 				distance = measure_distance();
- 46a:	0e 94 bf 01 	call	0x37e	; 0x37e <measure_distance>
+ 3be:	0e 94 69 01 	call	0x2d2	; 0x2d2 <measure_distance>
 				custom_delay_ms(10);
- 46e:	8a e0       	ldi	r24, 0x0A	; 10
- 470:	90 e0       	ldi	r25, 0x00	; 0
- 472:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
- 476:	03 c0       	rjmp	.+6      	; 0x47e <__EEPROM_REGION_LENGTH__+0x7e>
+ 3c2:	8a e0       	ldi	r24, 0x0A	; 10
+ 3c4:	90 e0       	ldi	r25, 0x00	; 0
+ 3c6:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
+ 3ca:	03 c0       	rjmp	.+6      	; 0x3d2 <main+0xc4>
 			}else{
 				move(averageValue);
- 478:	c8 01       	movw	r24, r16
- 47a:	0e 94 71 01 	call	0x2e2	; 0x2e2 <move>
+ 3cc:	c8 01       	movw	r24, r16
+ 3ce:	0e 94 1b 01 	call	0x236	; 0x236 <move>
 		}
 			var = receiveMessage();
- 47e:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
+ 3d2:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
- 482:	9e eb       	ldi	r25, 0xBE	; 190
- 484:	98 0f       	add	r25, r24
- 486:	92 30       	cpi	r25, 0x02	; 2
- 488:	10 f4       	brcc	.+4      	; 0x48e <__EEPROM_REGION_LENGTH__+0x8e>
- 48a:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <__data_end>
+ 3d6:	9e eb       	ldi	r25, 0xBE	; 190
+ 3d8:	98 0f       	add	r25, r24
+ 3da:	92 30       	cpi	r25, 0x02	; 2
+ 3dc:	10 f4       	brcc	.+4      	; 0x3e2 <main+0xd4>
+ 3de:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
   while (1) 
     {
 		var = receiveMessage();
 		if(var == 'A' || var == 'B' || var == 'C'){receivedMessage = var;}
 		
 		while(receivedMessage == 'A'){
- 48e:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <__data_end>
- 492:	81 34       	cpi	r24, 0x41	; 65
- 494:	09 f4       	brne	.+2      	; 0x498 <__EEPROM_REGION_LENGTH__+0x98>
- 496:	b4 cf       	rjmp	.-152    	; 0x400 <__EEPROM_REGION_LENGTH__>
+ 3e2:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
+ 3e6:	81 34       	cpi	r24, 0x41	; 65
+ 3e8:	09 f4       	brne	.+2      	; 0x3ec <main+0xde>
+ 3ea:	b4 cf       	rjmp	.-152    	; 0x354 <main+0x46>
 				move(averageValue);
 		}
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}
 		}
 		setMotorASpeed(0);
- 498:	80 e0       	ldi	r24, 0x00	; 0
- 49a:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
+ 3ec:	80 e0       	ldi	r24, 0x00	; 0
+ 3ee:	0e 94 b8 00 	call	0x170	; 0x170 <setMotorASpeed>
 		setMotorBSpeed(0);
- 49e:	80 e0       	ldi	r24, 0x00	; 0
- 4a0:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
+ 3f2:	80 e0       	ldi	r24, 0x00	; 0
+ 3f4:	0e 94 be 00 	call	0x17c	; 0x17c <setMotorBSpeed>
 		if(receivedMessage == 'B'){
- 4a4:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <__data_end>
- 4a8:	82 34       	cpi	r24, 0x42	; 66
- 4aa:	81 f4       	brne	.+32     	; 0x4cc <__EEPROM_REGION_LENGTH__+0xcc>
+ 3f8:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
+ 3fc:	82 34       	cpi	r24, 0x42	; 66
+ 3fe:	81 f4       	brne	.+32     	; 0x420 <__EEPROM_REGION_LENGTH__+0x20>
 			custom_delay_ms(5000);
- 4ac:	88 e8       	ldi	r24, 0x88	; 136
- 4ae:	93 e1       	ldi	r25, 0x13	; 19
- 4b0:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
+ 400:	88 e8       	ldi	r24, 0x88	; 136
+ 402:	93 e1       	ldi	r25, 0x13	; 19
+ 404:	0e 94 76 00 	call	0xec	; 0xec <custom_delay_ms>
 			receivedMessage = 'A';
- 4b4:	81 e4       	ldi	r24, 0x41	; 65
- 4b6:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <__data_end>
- 4ba:	08 c0       	rjmp	.+16     	; 0x4cc <__EEPROM_REGION_LENGTH__+0xcc>
+ 408:	81 e4       	ldi	r24, 0x41	; 65
+ 40a:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
+ 40e:	08 c0       	rjmp	.+16     	; 0x420 <__EEPROM_REGION_LENGTH__+0x20>
 		}
 		while(receivedMessage == 'C'){
 			var = receiveMessage();
- 4bc:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
+ 410:	0e 94 a2 00 	call	0x144	; 0x144 <receiveMessage>
 			if(var == 'A' || var == 'B'){receivedMessage =var;}
- 4c0:	9f eb       	ldi	r25, 0xBF	; 191
- 4c2:	98 0f       	add	r25, r24
- 4c4:	92 30       	cpi	r25, 0x02	; 2
- 4c6:	10 f4       	brcc	.+4      	; 0x4cc <__EEPROM_REGION_LENGTH__+0xcc>
- 4c8:	80 93 18 01 	sts	0x0118, r24	; 0x800118 <__data_end>
+ 414:	9f eb       	ldi	r25, 0xBF	; 191
+ 416:	98 0f       	add	r25, r24
+ 418:	92 30       	cpi	r25, 0x02	; 2
+ 41a:	10 f4       	brcc	.+4      	; 0x420 <__EEPROM_REGION_LENGTH__+0x20>
+ 41c:	80 93 1a 01 	sts	0x011A, r24	; 0x80011a <__data_end>
 		setMotorBSpeed(0);
 		if(receivedMessage == 'B'){
 			custom_delay_ms(5000);
 			receivedMessage = 'A';
 		}
 		while(receivedMessage == 'C'){
- 4cc:	80 91 18 01 	lds	r24, 0x0118	; 0x800118 <__data_end>
- 4d0:	83 34       	cpi	r24, 0x43	; 67
- 4d2:	a1 f3       	breq	.-24     	; 0x4bc <__EEPROM_REGION_LENGTH__+0xbc>
- 4d4:	8b cf       	rjmp	.-234    	; 0x3ec <main+0x32>
+ 420:	80 91 1a 01 	lds	r24, 0x011A	; 0x80011a <__data_end>
+ 424:	83 34       	cpi	r24, 0x43	; 67
+ 426:	a1 f3       	breq	.-24     	; 0x410 <__EEPROM_REGION_LENGTH__+0x10>
+ 428:	8b cf       	rjmp	.-234    	; 0x340 <main+0x32>
 
-000004d6 <__divmodhi4>:
- 4d6:	97 fb       	bst	r25, 7
- 4d8:	07 2e       	mov	r0, r23
- 4da:	16 f4       	brtc	.+4      	; 0x4e0 <__divmodhi4+0xa>
- 4dc:	00 94       	com	r0
- 4de:	07 d0       	rcall	.+14     	; 0x4ee <__divmodhi4_neg1>
- 4e0:	77 fd       	sbrc	r23, 7
- 4e2:	09 d0       	rcall	.+18     	; 0x4f6 <__divmodhi4_neg2>
- 4e4:	0e 94 7f 02 	call	0x4fe	; 0x4fe <__udivmodhi4>
- 4e8:	07 fc       	sbrc	r0, 7
- 4ea:	05 d0       	rcall	.+10     	; 0x4f6 <__divmodhi4_neg2>
- 4ec:	3e f4       	brtc	.+14     	; 0x4fc <__divmodhi4_exit>
+0000042a <__divmodhi4>:
+ 42a:	97 fb       	bst	r25, 7
+ 42c:	07 2e       	mov	r0, r23
+ 42e:	16 f4       	brtc	.+4      	; 0x434 <__divmodhi4+0xa>
+ 430:	00 94       	com	r0
+ 432:	07 d0       	rcall	.+14     	; 0x442 <__divmodhi4_neg1>
+ 434:	77 fd       	sbrc	r23, 7
+ 436:	09 d0       	rcall	.+18     	; 0x44a <__divmodhi4_neg2>
+ 438:	0e 94 29 02 	call	0x452	; 0x452 <__udivmodhi4>
+ 43c:	07 fc       	sbrc	r0, 7
+ 43e:	05 d0       	rcall	.+10     	; 0x44a <__divmodhi4_neg2>
+ 440:	3e f4       	brtc	.+14     	; 0x450 <__divmodhi4_exit>
 
-000004ee <__divmodhi4_neg1>:
- 4ee:	90 95       	com	r25
- 4f0:	81 95       	neg	r24
- 4f2:	9f 4f       	sbci	r25, 0xFF	; 255
- 4f4:	08 95       	ret
+00000442 <__divmodhi4_neg1>:
+ 442:	90 95       	com	r25
+ 444:	81 95       	neg	r24
+ 446:	9f 4f       	sbci	r25, 0xFF	; 255
+ 448:	08 95       	ret
 
-000004f6 <__divmodhi4_neg2>:
- 4f6:	70 95       	com	r23
- 4f8:	61 95       	neg	r22
- 4fa:	7f 4f       	sbci	r23, 0xFF	; 255
+0000044a <__divmodhi4_neg2>:
+ 44a:	70 95       	com	r23
+ 44c:	61 95       	neg	r22
+ 44e:	7f 4f       	sbci	r23, 0xFF	; 255
 
-000004fc <__divmodhi4_exit>:
- 4fc:	08 95       	ret
+00000450 <__divmodhi4_exit>:
+ 450:	08 95       	ret
 
-000004fe <__udivmodhi4>:
- 4fe:	aa 1b       	sub	r26, r26
- 500:	bb 1b       	sub	r27, r27
- 502:	51 e1       	ldi	r21, 0x11	; 17
- 504:	07 c0       	rjmp	.+14     	; 0x514 <__udivmodhi4_ep>
+00000452 <__udivmodhi4>:
+ 452:	aa 1b       	sub	r26, r26
+ 454:	bb 1b       	sub	r27, r27
+ 456:	51 e1       	ldi	r21, 0x11	; 17
+ 458:	07 c0       	rjmp	.+14     	; 0x468 <__udivmodhi4_ep>
 
-00000506 <__udivmodhi4_loop>:
- 506:	aa 1f       	adc	r26, r26
- 508:	bb 1f       	adc	r27, r27
- 50a:	a6 17       	cp	r26, r22
- 50c:	b7 07       	cpc	r27, r23
- 50e:	10 f0       	brcs	.+4      	; 0x514 <__udivmodhi4_ep>
- 510:	a6 1b       	sub	r26, r22
- 512:	b7 0b       	sbc	r27, r23
+0000045a <__udivmodhi4_loop>:
+ 45a:	aa 1f       	adc	r26, r26
+ 45c:	bb 1f       	adc	r27, r27
+ 45e:	a6 17       	cp	r26, r22
+ 460:	b7 07       	cpc	r27, r23
+ 462:	10 f0       	brcs	.+4      	; 0x468 <__udivmodhi4_ep>
+ 464:	a6 1b       	sub	r26, r22
+ 466:	b7 0b       	sbc	r27, r23
 
-00000514 <__udivmodhi4_ep>:
- 514:	88 1f       	adc	r24, r24
- 516:	99 1f       	adc	r25, r25
- 518:	5a 95       	dec	r21
- 51a:	a9 f7       	brne	.-22     	; 0x506 <__udivmodhi4_loop>
- 51c:	80 95       	com	r24
- 51e:	90 95       	com	r25
- 520:	bc 01       	movw	r22, r24
- 522:	cd 01       	movw	r24, r26
- 524:	08 95       	ret
+00000468 <__udivmodhi4_ep>:
+ 468:	88 1f       	adc	r24, r24
+ 46a:	99 1f       	adc	r25, r25
+ 46c:	5a 95       	dec	r21
+ 46e:	a9 f7       	brne	.-22     	; 0x45a <__udivmodhi4_loop>
+ 470:	80 95       	com	r24
+ 472:	90 95       	com	r25
+ 474:	bc 01       	movw	r22, r24
+ 476:	cd 01       	movw	r24, r26
+ 478:	08 95       	ret
 
-00000526 <_exit>:
- 526:	f8 94       	cli
+0000047a <_exit>:
+ 47a:	f8 94       	cli
 
-00000528 <__stop_program>:
- 528:	ff cf       	rjmp	.-2      	; 0x528 <__stop_program>
+0000047c <__stop_program>:
+ 47c:	ff cf       	rjmp	.-2      	; 0x47c <__stop_program>

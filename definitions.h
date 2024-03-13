@@ -34,26 +34,27 @@
 #define SERVO_PIN PINB1
 
 #define WHITE 550
-#define BLACK 750
-#define WHITE_PLUS 65
-#define BLACK_PLUS 50
-#define X 15	//INNER LIMIT
-#define Y 15	//OUTER LIMIT
+#define BLACK 700
+#define WHITE_PLUS 55	//65
+#define BLACK_MINUS 40	//50
+#define X 15	//INNER LIMIT 15
+#define Y 30	//OUTER LIMIT 15
 
-int driveSpeedFull = 45;
-int driveSpeedTruning = 10;
-int turningSpeed = 120;
-int hardTurningSPeed = 200;
-int Turn = 150;
-int Drive = 25;
+int driveSpeedFull = 80;	//65
+int driveSpeedTruning = 10;	//10
+int turningSpeed = 80;	//120
+int hardTurningSPeed = 160;	//200
+int Turn = 800;	//150
+int Drive = 40;	//25
+int regularTruningSpeed = 70; //45
 
 int white_limit = WHITE + WHITE_PLUS;
-int black_limit = BLACK - BLACK_PLUS;
+int black_limit = BLACK - BLACK_MINUS;
 
 int whiteOuterLimit = WHITE + WHITE_PLUS - Y;
 int whiteInnerLimit = WHITE + WHITE_PLUS + X;
-int blackOuterLimit = BLACK - BLACK_PLUS + Y;
-int blackInnerLimit = BLACK - BLACK_PLUS - X;
+int blackOuterLimit = BLACK - BLACK_MINUS + Y;
+int blackInnerLimit = BLACK - BLACK_MINUS - X;
 
 char receivedMessage = '\0';
 
