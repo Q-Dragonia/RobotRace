@@ -41,10 +41,10 @@
 #define Y 15	//OUTER LIMIT 15
 
 int driveSpeedFull = 65;	//65
-int driveSpeedTruning = 5;	//10
+int driveSpeedTruning = 10;	//10
 int turningSpeed = 120;	//120
-int hardTurningSPeed = 170;	//200
-int Turn = 150;	//150
+int hardTurningSPeed = 210;	//200
+int Turn = 160;	//150
 int Drive = 25;	//25
 int regularTruningSpeed = 45; //45
 int multi = 1;
