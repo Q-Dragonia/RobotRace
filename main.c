@@ -39,20 +39,18 @@ int main(void)
     {
 		var = receiveMessage();
 		if(var == 'A' || var == 'B' || var == 'C'){receivedMessage = var;}
-		setMotorASpeed(255);
-		setMotorBSpeed(255);
 		
 		while(receivedMessage == 'A'){
-			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
-			int lineTrackingSensorLeft = (int)readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
-			int lineTrackingSensorMiddle = (int)readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
-			int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) - 30);
-			int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL) - 20);
+			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL));
+			int lineTrackingSensorLeft = (int)(readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL));
+			int lineTrackingSensorMiddle = (int)(readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL));
+			int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL));
+			int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL));
 			
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
 			
 			distance = measure_distance();
-			//transferMessage(averageValue);
+			transferMessage(averageValue);
 			custom_delay_ms(10);
 			if(distance < 60){
 				setMotorBSpeed(0);
@@ -60,7 +58,7 @@ int main(void)
 				distance = measure_distance();
 				custom_delay_ms(10);
 			}else{
-				move(averageValue);
+				//move(averageValue);
 		}
 			var = receiveMessage();
 			if(var == 'B' || var == 'C'){receivedMessage = var;}

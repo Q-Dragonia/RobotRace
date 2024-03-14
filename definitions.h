@@ -33,8 +33,8 @@
 #define SERVO_MAX 4999   // for 2.5 ms
 #define SERVO_PIN PINB1
 
-#define WHITE 550
-#define BLACK 700
+#define WHITE 480
+#define BLACK 770
 #define WHITE_PLUS 65	//65
 #define BLACK_MINUS 50	//50
 #define X 10	//INNER LIMIT 15
