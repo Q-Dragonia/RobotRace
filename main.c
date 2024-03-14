@@ -41,11 +41,11 @@ int main(void)
 		if(var == 'A' || var == 'B' || var == 'C'){receivedMessage = var;}
 		
 		while(receivedMessage == 'A'){
-			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL) - 30);
-			int lineTrackingSensorLeft = (int)readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL);
-			int lineTrackingSensorMiddle = (int)readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL);
-			int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL) - 30);
-			int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL) - 20);
+			int sensorLeft = (int)(readADC(SENSOR_LEFT_CHANNEL));
+			int lineTrackingSensorLeft = (int)(readADC(LINE_TRACKING_SENSOR_LEFT_CHANNEL));
+			int lineTrackingSensorMiddle = (int)(readADC(LINE_TRACKING_SENSOR_MIDDLE_CHANNEL));
+			int lineTrackingSensorRight = (int)(readADC(LINE_TRACKING_SENSOR_RIGHT_CHANNEL));
+			int sensorRight = (int)(readADC(SENSOR_RIGHT_CHANNEL));
 			
 			int averageValue = (int)((sensorLeft + lineTrackingSensorLeft + lineTrackingSensorMiddle + lineTrackingSensorRight +sensorRight) / 5);
 			

@@ -26,55 +26,49 @@ void move(int averageValue){
 	}else if(averageValue > blackInnerLimit){
 		turnLeft();
 	}else{Forward();}
+	custom_delay_ms(10);
  }
 
 void Forward(){
-	_delay_ms(10);
-	setMotorASpeed(driveSpeedFull + 20); // RIGHT
-	setMotorBSpeed(driveSpeedFull + 20); // LEFT
-	_delay_ms(10);
+	setMotorASpeed(driveSpeedFull); // RIGHT
+	setMotorBSpeed(driveSpeedFull * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 void turnRight(){
-	_delay_ms(10);
 	setMotorASpeed(turningSpeed); // RIGHT
-	setMotorBSpeed(driveSpeedFull); // LEFT
-	_delay_ms(10);
+	setMotorBSpeed(regularTruningSpeed * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 void turnRighty(){
-	_delay_ms(10);
 	setMotorASpeed(Turn); // RIGHT
-	setMotorBSpeed(Drive); // LEFT
-	_delay_ms(10);
+	setMotorBSpeed(Drive * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 void turnHardRight(){
-	_delay_ms(10);
 	setMotorASpeed(hardTurningSPeed); // RIGHT
-	setMotorBSpeed(driveSpeedTruning); // LEFT
-	_delay_ms(10);
+	setMotorBSpeed(driveSpeedTruning * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 void turnLeft(){
-	_delay_ms(10);
-	setMotorASpeed(driveSpeedFull); // RIGHT
-	setMotorBSpeed(turningSpeed); // LEFT
-	_delay_ms(10);
+	setMotorASpeed(regularTruningSpeed); // RIGHT
+	setMotorBSpeed(turningSpeed * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 void turnLefty(){
-	_delay_ms(10);
-	setMotorASpeed(Drive); // RIGHT
-	setMotorBSpeed(Turn); // LEFT
-	_delay_ms(10);
+	setMotorASpeed(Drive * multi); // RIGHT
+	setMotorBSpeed(Turn * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 void turnHardLeft(){
-	_delay_ms(10);
-	setMotorASpeed(driveSpeedTruning); // RIGHT
-	setMotorBSpeed(hardTurningSPeed); // LEFT
-	_delay_ms(10);
+	setMotorASpeed(driveSpeedTruning * multi); // RIGHT
+	setMotorBSpeed(hardTurningSPeed * multi); // LEFT
+	custom_delay_ms(10);
 }
 
 #endif /* TURNING_H_ */
